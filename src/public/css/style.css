@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/* Botões na tela principal */
+.button img {
+    margin: 50px 15px 25px 15px;
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    width: 110px;
+}
+
+footer{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: black;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    font-size: 18px;
+}

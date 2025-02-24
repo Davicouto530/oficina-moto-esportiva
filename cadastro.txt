@@ -1,0 +1,26 @@
+Cadastro:
+
+1 - Cliente:
+Nome completo
+CPF/CNPJ
+Telefone 
+e-mail
+Endereço
+
+2 - Funcionario:
+Nome completo
+CPF
+Telefone 
+e-mail
+Endereço
+Cargos
+Horario expediente
+Salario
+
+3 - Moto:
+Placa
+Marca
+Modelo
+Ano
+Problema técnico
+Cor

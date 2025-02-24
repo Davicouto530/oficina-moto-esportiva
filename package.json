@@ -1,0 +1,23 @@
+{
+  "name": "oficina-moto-esportiva",
+  "version": "1.0.0",
+  "description": "Desenvolvimento de sistema desktop para a gestão de oficina de motos esportivas.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davicouto530/oficina-moto-esportiva.git"
+  },
+  "author": "Davi do couto",
+  "license": "MIT ",
+  "bugs": {
+    "url": "https://github.com/Davicouto530/oficina-moto-esportiva/issues"
+  },
+  "homepage": "https://github.com/Davicouto530/oficina-moto-esportiva#readme",
+  "devDependencies": {
+    "electron": "^34.2.0"
+  }
+}
