@@ -1,0 +1,71 @@
+Cadastro:
+
+1 - Cliente:
+Nome completo
+CPF/CNPJ
+Telefone 
+e-mail
+Endereço
+
+2 - Funcionario:
+Nome completo
+CPF
+Telefone 
+e-mail
+Endereço
+Cargos
+Horario expediente
+Salario
+
+3 - Moto:
+Placa
+Marca
+Modelo
+Ano
+Problema técnico
+Cor
+Peça substituida
+Peça nova
+
+4 - Pagamento
+Valor a pagar
+total
+troco
+historico de pagamentos
+
+5 - Orçamento
+Qual peça será trocada
+Peça nova 
+mão de obra
+
+6 - Serviços oferecidos
+Troca de óleo e filtro
+Revisão geral (check-up completo)
+Regulagem de embreagem e acelerador
+Ajuste e lubrificação da corrente
+Troca de pastilhas e fluido de freio
+Substituição de pneus e alinhamento
+Instalação de escapamento esportivo
+Mapeamento e ajuste da injeção eletrônica 
+Revisão e limpeza do sistema de arrefecimento
+Personalização estética (adesivos, pintura, envelopamento)
+
+7 - Serviços mais realizados
+Troca de óleo e filtro
+Substituição de pneus
+Troca de pastilhas e fluido de freio
+Ajuste e lubrificação da corrente
+Regulagem da suspensão
+
+8 - Emissão da Ordem de Serviço (OS)
+Número da OS (gerado automaticamente)
+Data e hora da abertura (gerado automaticamente)
+Dados do cliente (puxar do cadastro de clientes)
+Dados do equipamento
+Problema relatado pelo cliente
+Diagnóstico técnico (preenchido pelo técnico)
+Peças necessárias para reparo (se houver)
+Prazo estimado para conclusão
+Status da OS (Aberta, Em andamento, Aguardando peças, Finalizada, Cancelada)
+Termos e condições para aprovação do serviço
+
