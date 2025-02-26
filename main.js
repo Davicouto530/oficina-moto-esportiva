@@ -1,6 +1,9 @@
 console.log("Processo principal")
 
-const { app, BrowserWindow, nativeTheme, Menu } = require('electron')
+const { app, BrowserWindow, nativeTheme, Menu, ipcMain } = require('electron')
+
+//Esta linha está relacionado ao preload.js
+const path = require('node:path')
 
 //Janela principal
 let win
@@ -13,12 +16,29 @@ const createWindow = () => {
         // autoHideMenuBar: true,
         // minimizabl: false,
         resizable: false,
+
+        //Ativação do preload.js
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
     })
 
     //Menu personalizado
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
     win.loadFile('./src/views/index.html')
+
+    ipcMain.on ('cliente-window', () => {
+        clienteWindow()
+    })
+
+    ipcMain.on ('funcionarios-window', () => {
+        funcionariosWindow()
+    })
+
+    ipcMain.on ('placamoto-window', () => {
+        placamotoWindow()
+    })
 }
 
 //Janela sobre
@@ -47,11 +67,64 @@ function aboutWindow() {
     about.loadFile('./src/views/sobre.html')
 }
 
-//Iniciar aplicativo
-app.whenReady().then(() => {
-    createWindow()
-})
+//Janela clientes
+let client
 
+function clienteWindow(){
+    nativeTheme.themeSource = 'light'
+    const main = BrowserWindow.getFocusedWindow()
+    if(main){
+        client = new BrowserWindow({
+            width: 1010,
+            height: 720,
+            //autoHideMenuBar: true,
+            parent: main,
+            modal: true
+        })
+    }
+    client.loadFile('./src/views/cliente.html')
+    client.center()//centralizar a tela
+}
+
+//Janela funcionarios
+let funcionarios
+
+function funcionariosWindow(){
+    nativeTheme.themeSource = 'light'
+    const main = BrowserWindow.getFocusedWindow()
+    if(main){
+        funcionarios = new BrowserWindow({
+            width: 1010,
+            height: 720,
+            //autoHideMenuBar: true,
+            parent: main,
+            modal: true
+        })
+    }
+    funcionarios.loadFile('./src/views/OS.html')
+    funcionarios.center()
+}
+
+//Janela funcionarios
+let placamoto
+
+function placamotoWindow(){
+    nativeTheme.themeSource = 'light'
+    const main = BrowserWindow.getFocusedWindow()
+    if(main){
+        placamoto = new BrowserWindow({
+            width: 1010,
+            height: 720,
+            //autoHideMenuBar: true,
+            parent: main,
+            modal: true
+        })
+    }
+    placamoto.loadFile('./src/views/OS.html')
+    placamoto.center()
+}
+
+//Iniciar aplicativo
 app.whenReady().then(() => {
     createWindow()
 
@@ -77,13 +150,16 @@ const template = [
         label: 'Cadastro',
         submenu: [
             {
-                label: 'Cliente'
+                label: 'Cliente',
+                click: () => clienteWindow()
             },
             {
-                label: 'Funcionario'
+                label: 'Funcionario',
+                click: () => funcionariosWindow()
             },
             {
-                label: 'Modelo e placa da moto'
+                label: 'Modelo e placa da moto',
+                click: () => placamotoWindow()
             },
             {
                 type: 'separator'
