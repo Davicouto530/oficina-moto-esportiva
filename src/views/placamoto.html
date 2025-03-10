@@ -15,8 +15,73 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' ">
 </head>
 <body>
+    <h1 class="d-flex justify-content-center mt-2 mb-2">Cadastro de Modelo de placa</h1>
+
     <div class="container">
-        <h1>Modelo e placa de moto</h1>
+        <form id="frmMoto" class="mt-2 row g-3">
+            <!--Buscar-->
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="searchClinet" maxlength="30" spellcheck="false">
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-dark" id="btnRead" onclick="searchMoto()">Buscar</button>
+            </div>
+
+            <!--Linha-->
+            <hr class="mt-4 border border-primary border -1">
+
+            <!--Placa-->
+            <div class="col-md-4">
+                <label for="inputPlacaMoto" class="form-label">Placa</label>
+
+                <input type="text" class="form-control" id="inputPlacaMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Marca-->
+            <div class="col-md-4">
+                <label for="inputMarcaMoto" class="form-label">Marca</label>
+
+                <input type="email" class="form-control" id="inputMarcaNameMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Modelo-->
+            <div class="col-md-4">
+                <label for="inputModeloMoto" class="form-label">Modelo</label>
+
+                <input type="text" class="form-control" id="inputModeloMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Ano da moto-->
+            <div class="col-md-4">
+                <label for="inputAnoMoto" class="form-label">Ano da moto</label>
+
+                <input type="date" class="form-control" id="inputAnoMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Problema técnico-->
+            <div class="col-md-4">
+                <label for="inputProblemaMoto" class="form-label">Problema técnico</label>
+
+                <input type="text" class="form-control" id="inputProblemaMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Cor-->
+            <div class="col-md-4">
+                <label for="inputCorMoto" class="form-label">Cor</label>
+
+                <input type="color" class="form-control" id="inputCorMoto" required spellcheck="false" maxlength="30">
+            </div>
+
+            <!--Botões-->
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
+                <button type="button" class="btn btn-danger" id="btnDelete">Delete</button>
+
+                <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>
+            </div>
+
+        </form>
     </div>
 
     <!--Bootstrap-->

@@ -39,6 +39,10 @@ const createWindow = () => {
     ipcMain.on ('placamoto-window', () => {
         placamotoWindow()
     })
+
+    ipcMain.on ('os-window', () => {
+        osWindow()
+    })
 }
 
 //Janela sobre
@@ -101,7 +105,7 @@ function funcionariosWindow(){
             modal: true
         })
     }
-    funcionarios.loadFile('./src/views/OS.html')
+    funcionarios.loadFile('./src/views/funcionarios.html')
     funcionarios.center()
 }
 
@@ -120,8 +124,27 @@ function placamotoWindow(){
             modal: true
         })
     }
-    placamoto.loadFile('./src/views/OS.html')
+    placamoto.loadFile('./src/views/placamoto.html')
     placamoto.center()
+}
+
+//Janela os
+let os
+
+function osWindow(){
+    nativeTheme.themeSource = 'light'
+    const main = BrowserWindow.getFocusedWindow()
+    if(main){
+        os = new BrowserWindow({
+            width: 1010,
+            height: 720,
+            //autoHideMenuBar: true,
+            parent: main,
+            modal: true
+        })
+    }
+    os.loadFile('./src/views/os.html')
+    os.center()
 }
 
 //Iniciar aplicativo
@@ -162,6 +185,10 @@ const template = [
                 click: () => placamotoWindow()
             },
             {
+                label: 'OS',
+                click: () => osWindow()
+            },
+            {
                 type: 'separator'
             },
             {
@@ -188,12 +215,6 @@ const template = [
         submenu: [
             {
                 label: 'Clientes'
-            },
-            {
-                type: 'separator'
-            },
-            {
-                label: 'Orçamento'
             }
         ]
     },

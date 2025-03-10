@@ -11,5 +11,6 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('api', {
     clientWindow: () => ipcRenderer.send('cliente-window'),
     funcionariosWindow: () => ipcRenderer.send('funcionarios-window'),
-    placamotoWindow: () => ipcRenderer.send('placamoto-window')
+    placamotoWindow: () => ipcRenderer.send('placamoto-window'),
+    osWindow: () => ipcRenderer.send('os-window')
 })

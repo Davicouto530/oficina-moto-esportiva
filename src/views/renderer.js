@@ -24,3 +24,9 @@ function placamoto(){
     //Uso da api(autorizada no preload.js)
     api.placamotoWindow()
 }
+
+function os(){
+    console.log('Teste do botão placamoto')
+    //Uso da api(autorizada no preload.js)
+    api.osWindow()
+}
