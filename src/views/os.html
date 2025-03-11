@@ -1,26 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OS</title>
-
+    <title>Serviços</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 
-    <!-- CSS Personalizado -->
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="../public/css/style.css">
 
-    <!--Impedir a execução de scripts externos ou não autorizados-->
+    <!-- Impedir a execução de scripts externos ou não autorizados -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' ">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
-        <h1>OS</h1>
+        <h1 class="d-flex justify-content-center mb-4">OS</h1>
+        <form id="frmClient" class="mt-2 row g-3">
+
+            <!-- Número da OS -->
+            <div class="col-md-2">
+                <label for="inputNumeroOS" class="form-label">Número da OS</label>
+                <input type="number" class="form-control" id="inputNumeroOS" spellcheck="false" disabled
+                    maxlength="30">
+            </div>
+
+            <!-- Data da abertura  -->
+            <div class="col-md-2">
+                <label for="inputDateOS" class="form-label">Data da Abertura</label>
+                <input type="date" class="form-control" id="inputDateOS" spellcheck="false" disabled maxlength="8">
+            </div>
+
+            <!-- Buscar cliente -->
+            <div class="col-md-6" id="buscarclientes">
+                <label for="inputNumeroOS" class="form-label">
+                    Buscar Clientes
+                </label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false">
+                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchClient()">Buscar</button>
+                </div>
+
+            </div>
+
+            <!-- Linha -->
+            <hr class="mt-4 border border-dark border -1">
+
+
+
+            <!-- Dados do cliente  -->
+            <div class="col-md-12">
+                <label for="inputDadosOS" class="form-label">Dados do cliente</label>
+                <input type="text" class="form-control" id="inputDadosOS" spellcheck="false" maxlength="30">
+            </div>
+
+            <!-- Prazo  -->
+            <div class="col-md-12">
+                <label for="inputPrazoOS" class="form-label">Prazo</label>
+                <input type="text" class="form-control" id="inputPrazoOS" spellcheck="false" required maxlength="15">
+            </div>
+
+            <!-- Status da OS  -->
+            <div class="col-md-12">
+                <label for="inputStatusOS" class="form-label">Status da OS</label>
+                <input type="text" class="form-control" id="inputStatusOS" spellcheck="false" required maxlength="30">
+            </div>
+
+
+            <!--Botões-->
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
+                <button type="button" class="btn btn-danger" id="btnDelete">Delete</button>
+
+                <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>
+            </div>
+
+        </form>
     </div>
 
-    <!--Bootstrap-->
+    <!-- Bootstrap -->
     <script src="../public/js/bootstrap.min.js"></script>
-
 </body>
+
 </html>

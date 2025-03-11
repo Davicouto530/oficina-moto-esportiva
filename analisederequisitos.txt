@@ -24,8 +24,6 @@ Modelo
 Ano
 Problema técnico
 Cor
-Peça substituida
-Peça nova
 
 4 - Pagamento
 Valor a pagar
