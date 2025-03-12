@@ -65,7 +65,14 @@
             <div class="col-md-2">
                 <label for="inputCEPClient" class="form-label">CEP</label>
 
-                <input type="tel" class="form-control" id="inputCEPClient" required spellcheck="false" maxlength="9">
+                <input type="tel" class="form-control" id="inputCEPClient" required spellcheck="false" maxlength="9" onblur="buscarCEP()">
+            </div>
+
+            <!--Logradouro-->
+            <div class="col-md-6">
+                <label for="inputAddressClient" class="form-label">Logradouro</label>
+
+                <input type="tel" class="form-control" id="inputAddressClient" required spellcheck="false" maxlength="30">
             </div>
 
             <!--Numero-->
@@ -75,6 +82,62 @@
                 <input type="tel" class="form-control" id="inputNumberClient" required spellcheck="false" maxlength="5">
             </div>
 
+            <!--Complemento-->
+            <div class="col-md-3">
+                <label for="inputComplementClient" class="form-label">Complemento</label>
+
+                <input type="tel" class="form-control" id="inputComplementClient" spellcheck="false"
+                    maxlength="12">
+            </div>
+
+            <!--Bairro-->
+            <div class="col-md-5">
+                <label for="inputNeighborhoodClient" class="form-label">Bairro</label>
+
+                <input type="tel" class="form-control" id="inputNeighborhoodClient" required spellcheck="false"
+                    maxlength="12">
+            </div>
+
+            <!--Cidade-->
+            <div class="col-md-4">
+                <label for="inputTSateClient" class="form-label">Cidade</label>
+
+                <input type="tel" class="form-control" id="inputTSateClient" required spellcheck="false" maxlength="12">
+            </div>
+
+            <div class="col-md-3">
+                <label for="uf" class="form-label">UF</label>
+                <select required class="form-select" id="uf" name="UF">
+                    <option value="">Selecione uma UF</option>
+                    <option value="AC">AC - Acre</option>
+                    <option value="AL">AL - Alagoas</option>
+                    <option value="AP">AP - Amapá</option>
+                    <option value="AM">AM - Amazonas</option>
+                    <option value="BA">BA - Bahia</option>
+                    <option value="CE">CE - Ceará</option>
+                    <option value="DF">DF - Distrito Federal</option>
+                    <option value="ES">ES - Espírito Santo</option>
+                    <option value="GO">GO - Goiás</option>
+                    <option value="MA">MA - Maranhão</option>
+                    <option value="MT">MT - Mato Grosso</option>
+                    <option value="MS">MS - Mato Grosso do Sul</option>
+                    <option value="MG">MG - Minas Gerais</option>
+                    <option value="PA">PA - Pará</option>
+                    <option value="PB">PB - Paraíba</option>
+                    <option value="PR">PR - Paraná</option>
+                    <option value="PE">PE - Pernambuco</option>
+                    <option value="PI">PI - Piauí</option>
+                    <option value="RJ">RJ - Rio de Janeiro</option>
+                    <option value="RN">RN - Rio Grande do Norte</option>
+                    <option value="RS">RS - Rio Grande do Sul</option>
+                    <option value="RO">RO - Rondônia</option>
+                    <option value="RR">RR - Roraima</option>
+                    <option value="SC">SC - Santa Catarina</option>
+                    <option value="SP">SP - São Paulo</option>
+                    <option value="SE">SE - Sergipe</option>
+                    <option value="TO">TO - Tocantins</option>
+                </select>
+            </div>
 
             <!--Botões-->
             <div class="mt-5">
@@ -90,6 +153,7 @@
     <!--Bootstrap-->
     <script src="../public/js/bootstrap.min.js"></script>
 
+    <script src="redererCliente.js"></script>
     
 </body>
 </html>
