@@ -53,21 +53,51 @@
 
 
             <!-- Dados do cliente  -->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="inputDadosOS" class="form-label">Dados do cliente</label>
                 <input type="text" class="form-control" id="inputDadosOS" spellcheck="false" maxlength="30">
             </div>
 
             <!-- Prazo  -->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="inputPrazoOS" class="form-label">Prazo</label>
                 <input type="text" class="form-control" id="inputPrazoOS" spellcheck="false" required maxlength="15">
             </div>
 
+            <!-- Dados do equipamento  -->
+            <div class="col-md-6">
+                <label for="inputDadosEqOS" class="form-label">Dados do equipamento</label>
+                <input type="text" class="form-control" id="inputDadosEqOS" spellcheck="false" required maxlength="50">
+            </div>
+
+            <!-- Problema relatado pelo cliente -->
+            <div class="col-md-6">
+                <label for="inputProblemaOS" class="form-label">Problema relatado pelo cliente</label>
+                <input type="text" class="form-control" id="inputProblemaOS" spellcheck="false" required maxlength="500">
+            </div>
+
+            <!-- Diagnóstico técnico -->
+            <div class="col-md-6">
+                <label for="inputDiagnosticoOS" class="form-label">Diagnóstico técnico</label>
+                <input type="text" class="form-control" id="inputDiagnosticoOS" spellcheck="false" disabled required maxlength="500">
+            </div>
+
+            <!-- Peças necessárias para reparo -->
+            <div class="col-md-6">
+                <label for="inputPecasRepOS" class="form-label">Peças necessárias para reparo</label>
+                <input type="text" class="form-control" id="inputPecasRepOS" spellcheck="false" required maxlength="500">
+            </div>
+
             <!-- Status da OS  -->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="inputStatusOS" class="form-label">Status da OS</label>
-                <input type="text" class="form-control" id="inputStatusOS" spellcheck="false" required maxlength="30">
+                <select required class="form-select" id="inputStatusOS" name="OS">
+                    <option value=""></option>
+                    <option value="">Pendente</option>
+                    <option value="">Em andamento</option>
+                    <option value="">Concluída</option>
+                    <option value="">Cancelada</option>
+                </select>
             </div>
 
 
