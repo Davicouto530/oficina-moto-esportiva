@@ -65,5 +65,5 @@ Diagnóstico técnico (preenchido pelo técnico)
 Peças necessárias para reparo (se houver)
 Prazo estimado para conclusão
 Status da OS (Aberta, Em andamento, Aguardando peças, Finalizada, Cancelada)
-Termos e condições para aprovação do serviço
+
 

@@ -17,6 +17,10 @@ footer{
     color: #fff;
     position: fixed;
     bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 footer p {
