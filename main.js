@@ -8,6 +8,9 @@ const path = require('node:path')
 //Importação dos métodos conectar o e desconecatr (do modulo de conexão)
 const {conectar,desconectar} = require("./database.js")
 
+//Importação do schema cliente conectar e desconectar (módulo de conexão)
+const {conecatr, desconectar} = require("./src/models/Clientes.js")
+
 //Janela principal
 let win
 const createWindow = () => {
@@ -290,3 +293,35 @@ const template = [
         ]
     }
 ]
+
+// ===========================================================
+//Clientes - CRUD CREATE
+
+// Recebimento do objeto que contem os dados do cliente 
+ipcMain.on('new-client', async (event, client) => {
+    //Importante! Teste de recebimento dos dados do cliente
+    console.log(client)
+    // Cadastrar a  estrtura de dados no banco de dados no mongodb
+    try{
+        //Criar uma nova estrutura de dados usando a classe modelo
+        //Atenção! OS atributos precisam ser identicos ao modelo de dados clientes.js
+        //e os valores são definidos pelo conteúdo ao objeto client
+        const newClient = new clientModel({
+            nomeCliente: client.nameCli,
+            cpfCliente: client.cpfCli,
+            emailCliente: client.emailCli,
+            foneCliente: client.foneCli,
+            cepCliente: client.cepCli,
+            logradouroCliente: client.logfCli,
+            numeroCliente: client.numCli,
+            complementoCliente: client.complementoCli,
+            bairroCliente: client.bairroCli,
+            cidadeCliente: client.cidadeCli,
+            ufCliente: client.ufCli
+        })
+    }catch (error){
+        console.log(error)
+    }
+}) 
+
+//Fim - Clientes - CRUD CREATE==============================

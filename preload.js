@@ -16,7 +16,8 @@ contextBridge.exposeInMainWorld('api', {
     funcionariosWindow: () => ipcRenderer.send('funcionarios-window'),
     placamotoWindow: () => ipcRenderer.send('placamoto-window'),
     osWindow: () => ipcRenderer.send('os-window'),
-    dbStatus: (message) => ipcRenderer.on('db-status', message)
+    dbStatus: (message) => ipcRenderer.on('db-status', message),
+    newClient: (client) => ipcRenderer.send('new-client', client)
 })
 
 function dbStatus(message) {
