@@ -5,42 +5,32 @@
 
 //Importação dos recursos do framework mongoose
 const {model, Schema} = require('mongoose')
+const { version, type } = require('os')
 
 //Criação da estrutura da coleção Clientes
-const clienteSchema = new Schema({
+const cadastroOS = new Schema({
     nomeCliente: {
         type: String
-    }, 
-    cpfCliente: {
-        type: String,
-        unique: true,
-        index: true
     },
-    emailCliente: {
+    valor: {
         type: String
     },
-    foneCliente: {
+    prazo: {
         type: String
     },
-    cepCliente: {
+    dadosEquipa: {
         type: String
     },
-    logradouroCliente: {
+    problemaCliente: {
         type: String
     },
-    numeroCliente: {
+    diagTecnico: {
         type: String
     },
-    complementoCliente: {
+    pecasReparo: {
         type: String
     },
-    bairroCliente: {
-        type: String
-    },
-    cidadeCliente: {
-        type: String
-    },
-    ufCliente: {
+    statusOS: {
         type: String
     }
 }, {versionKey: false}) //Não versionar os dados armazenadas
@@ -48,5 +38,5 @@ const clienteSchema = new Schema({
 //Exportar para o main o modelo de dados
 //Clientes será o nome da coleção
 
-module.exports = model('Clientes', clienteSchema)
+module.exports = model('OS', cadastroOS)
 

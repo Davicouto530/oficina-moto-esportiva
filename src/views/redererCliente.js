@@ -61,7 +61,7 @@ frmClient.addEventListener('submit', async (event) => {
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const client = {
-        nameCli: nameClient.value,
+        nameCli: nameClient.vale,
         cpfCli: cpfClient.value,
         emailCli: emailClient.value,
         foneCli: foneClient.value,

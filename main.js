@@ -6,10 +6,10 @@ const { app, BrowserWindow, nativeTheme, Menu, ipcMain } = require('electron')
 const path = require('node:path')
 
 //Importação dos métodos conectar o e desconecatr (do modulo de conexão)
-const {conectar,desconectar} = require("./database.js")
+const { conectar, desconectar } = require("./database.js")
 
 //Importação do schema cliente conectar e desconectar (módulo de conexão)
-const {conecatr, desconectar} = require("./src/models/Clientes.js")
+const clientModel = require("./src/models/Clientes.js")
 
 //Janela principal
 let win
@@ -89,7 +89,11 @@ function clienteWindow(){
             height: 720,
             //autoHideMenuBar: true,
             parent: main,
-            modal: true
+            modal: true,
+            //Ativação do preload.js
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
         })
     }
     client.loadFile('./src/views/cliente.html')
@@ -319,6 +323,8 @@ ipcMain.on('new-client', async (event, client) => {
             cidadeCliente: client.cidadeCli,
             ufCliente: client.ufCli
         })
+        //Salvar os dados dos clientes no banco de dados
+        await newClient.save()
     }catch (error){
         console.log(error)
     }
