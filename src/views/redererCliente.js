@@ -59,10 +59,12 @@ frmClient.addEventListener('submit', async (event) => {
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
     console.log(nameClient.value, cpfClient.value, emailClient.value, foneClient.value, cepClient.value, logClient.value, numClient.value, complementoClient.value, bairroClient.value, cidadeClient.value, ufClient.value)
 
+    // Limpa o CPF antes de salvar no banco
+    let cpfSemFormatacao = cpfClient.value.replace(/\D/g, "");
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const client = {
-        nameCli: nameClient.vale,
-        cpfCli: cpfClient.value,
+        nameCli: nameClient.value,
+        cpfCli: cpfSemFormatacao,
         emailCli: emailClient.value,
         foneCli: foneClient.value,
         cepCli: cepClient.value,
@@ -79,3 +81,74 @@ frmClient.addEventListener('submit', async (event) => {
 })
 
 //Fim crud create update====================================================
+
+//=============================================================================
+//Reset form===================================================================
+function resetForm() {
+    //Limpar os campos e resetar o formulário com as configurações pré definidas
+    location.reload() //Recarrega a página
+}
+
+//Recebimento do pedido do main para resetar o formulário
+api.resetForm((args) => {
+    resetForm()
+}) 
+
+//Fim reset form===================================================================
+
+// === Função para aplicar máscara no CPF ===
+function aplicarMascaraCPF(campo) {
+    let cpf = campo.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    if (cpf.length > 3) cpf = cpf.replace(/^(\d{3})(\d)/, "$1.$2");
+    if (cpf.length > 6) cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+    if (cpf.length > 9) cpf = cpf.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+
+    campo.value = cpf;
+}
+
+// === Função para validar CPF ===
+function validarCPF() {
+    let campo = document.getElementById('inputCPFClient');
+    let cpf = campo.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        campo.style.borderColor = "red";
+        campo.style.color = "red";
+        return false;
+    }
+
+    let soma = 0, resto;
+
+    for (let i = 1; i <= 9; i++) soma += parseInt(cpf[i - 1]) * (11 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf[9])) {
+        campo.style.borderColor = "red";
+        campo.style.color = "red";
+        return false;
+    }
+
+    soma = 0;
+    for (let i = 1; i <= 10; i++) soma += parseInt(cpf[i - 1]) * (12 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf[10])) {
+        campo.style.borderColor = "red";
+        campo.style.color = "red";
+        return false;
+    }
+
+    campo.style.borderColor = "green";
+    campo.style.color = "green";
+    return true;
+}
+
+// Adicionar eventos para CPF
+cpfClient.addEventListener("input", () => aplicarMascaraCPF(cpfClient)); // Máscara ao digitar
+cpfClient.addEventListener("blur", validarCPF); // Validação ao perder o foco
+
+
+//parte 2, subir pro banco sem ponto
+
+// == CRUD Creat/Update ==================================

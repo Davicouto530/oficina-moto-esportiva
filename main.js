@@ -1,6 +1,8 @@
 console.log("Processo principal")
 
-const { app, BrowserWindow, nativeTheme, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, nativeTheme, Menu, ipcMain, dialog, shell } = require('electron')
+
+//shell serve para importar pdf
 
 //Esta linha está relacionado ao preload.js
 const path = require('node:path')
@@ -10,6 +12,12 @@ const { conectar, desconectar } = require("./database.js")
 
 //Importação do schema cliente conectar e desconectar (módulo de conexão)
 const clientModel = require("./src/models/Clientes.js")
+
+//Importação do pacote jspdf (npm i jspdf)
+const { jspdf, default: jsPDF} = require('jspdf')
+
+//importação de biblioteca fs (nativa do js) para manipulação de dados
+const fs = require('fs')
 
 //Janela principal
 let win
@@ -241,7 +249,8 @@ const template = [
         label: 'Relatório',
         submenu: [
             {
-                label: 'Clientes'
+                label: 'Clientes',
+                click:() => relatorioClientes()
             }
         ]
     },
@@ -325,9 +334,80 @@ ipcMain.on('new-client', async (event, client) => {
         })
         //Salvar os dados dos clientes no banco de dados
         await newClient.save()
+
+        //Messagem de confirmação
+        dialog.showMessageBox({
+            //Customização
+            type: 'info',
+            title: "Aviso",
+            message: "Cliente adicionando com sucesso",
+            buttons: ['OK']
+        }).then((result) => {
+            //Ação ao pressionar o botão
+            if(result.response === 0){
+                //Enviar um pedido para o renderizador limpar os campos e resetar as configurações pré definidas (rotulo preload)
+                event.reply('reset-form')
+            }
+        });
     }catch (error){
+        // Se o código de erro for 11000 (cpf duplicado) enviar uma mensagem ao usuario 
+        if(error.code === 11000){
+            dialog.showMessageBox({
+                type: 'error',
+                title: "Atenção!",
+                message: "CPF já está cadastrado\nverifique se digitou corretamente",
+                buttons: ['OK']
+            }).then((result) => {
+                if(result.response === 0){
+                    //Limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
+                }
+            })
+        }
         console.log(error)
     }
 }) 
 
 //Fim - Clientes - CRUD CREATE==============================
+
+//Relátorio de clientes ======================================
+async function relatorioClientes() {
+    try{
+        // passo 1: consultar o banco de dados e obter a listagem de clientes cadastrados por ordem alfabética
+        const clientes = await clientModel.find().sort({nomeCliente: 1})
+        //teste de recebimento da listagem de clientes
+        // console.log(clientes)
+
+        //Passo 2: formatação do documento
+        //p - portrait | 1 - landscape | mm e a4 (folha)
+        const doc = new jsPDF('p', 'mm', 'a4')
+        //definir o tamanho da fonte
+        doc.setFontSize(26)
+        //Escrevendo um texto (título)
+        doc.text("Relatório de clientes", 14, 20)//x, y (mm)
+
+        //Inserir a data atual no relatório
+        const dataAtual = new Date().toLocaleDateString('pt-br')
+        doc.setFontSize(12)
+        doc.text(`Data: ${dataAtual}`, 160, 10)
+        //Variável de apoio na formação
+        let y = 45
+        doc.text("Nome", 14, y)
+        doc.text("Telefone", 80, y)
+        doc.text("Email", 130, y)
+        y += 5
+        // Desenhar a linha
+        doc.setLineWidth(0.5)// espessura da linha
+        doc.line(10,y, 200, y) // 10 (Inicio) e 200 (fim)
+        
+        //Definir o caminho do arquivo temporário
+        const tempDir = app.getPath('temp')
+        const filePath = path.join(tempDir,'clientes.pdf')
+
+        //Salvar temporariamente o arquivo
+        doc.save(filePath)
+        //Abrir o arquivo no aplicativo padrão de leitura de pdf do computador do usuario
+        shell.openPath(filePath)
+    }catch(error){
+        console.log(error)
+    }
+}
