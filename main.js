@@ -13,8 +13,11 @@ const { conectar, desconectar } = require("./database.js")
 //Importação do schema cliente conectar e desconectar (módulo de conexão)
 const clientModel = require("./src/models/Clientes.js")
 
+//Importação do modelo de dados do cliente
+const clienteModel = require("./src/models/os.js")
+
 //Importação do pacote jspdf (npm i jspdf)
-const { jspdf, default: jsPDF} = require('jspdf')
+const { jspdf, default: jsPDF } = require('jspdf')
 
 //importação de biblioteca fs (nativa do js) para manipulação de dados
 const fs = require('fs')
@@ -42,19 +45,19 @@ const createWindow = () => {
 
     win.loadFile('./src/views/index.html')
 
-    ipcMain.on ('cliente-window', () => {
+    ipcMain.on('cliente-window', () => {
         clienteWindow()
     })
 
-    ipcMain.on ('funcionarios-window', () => {
+    ipcMain.on('funcionarios-window', () => {
         funcionariosWindow()
     })
 
-    ipcMain.on ('placamoto-window', () => {
+    ipcMain.on('placamoto-window', () => {
         placamotoWindow()
     })
 
-    ipcMain.on ('os-window', () => {
+    ipcMain.on('os-window', () => {
         osWindow()
     })
 }
@@ -88,10 +91,10 @@ function aboutWindow() {
 //Janela clientes
 let client
 
-function clienteWindow(){
+function clienteWindow() {
     nativeTheme.themeSource = 'light'
     const main = BrowserWindow.getFocusedWindow()
-    if(main){
+    if (main) {
         client = new BrowserWindow({
             width: 1010,
             height: 720,
@@ -111,10 +114,10 @@ function clienteWindow(){
 //Janela funcionarios
 let funcionarios
 
-function funcionariosWindow(){
+function funcionariosWindow() {
     nativeTheme.themeSource = 'light'
     const main = BrowserWindow.getFocusedWindow()
-    if(main){
+    if (main) {
         funcionarios = new BrowserWindow({
             width: 1010,
             height: 720,
@@ -130,10 +133,10 @@ function funcionariosWindow(){
 //Janela funcionarios
 let placamoto
 
-function placamotoWindow(){
+function placamotoWindow() {
     nativeTheme.themeSource = 'light'
     const main = BrowserWindow.getFocusedWindow()
-    if(main){
+    if (main) {
         placamoto = new BrowserWindow({
             width: 1010,
             height: 720,
@@ -149,10 +152,10 @@ function placamotoWindow(){
 //Janela os
 let os
 
-function osWindow(){
+function osWindow() {
     nativeTheme.themeSource = 'light'
     const main = BrowserWindow.getFocusedWindow()
-    if(main){
+    if (main) {
         os = new BrowserWindow({
             width: 1010,
             height: 720,
@@ -190,17 +193,17 @@ ipcMain.on('db-connect', async (event) => {
     let conectado = await conectar()
     // se conectado for igual a true
     if (conectado) {
-      // enviar uma mensagem para o renderizador trocar o ícone
-      setTimeout(() => {
-        event.reply('db-status', "conectado")
-      }, 500)
+        // enviar uma mensagem para o renderizador trocar o ícone
+        setTimeout(() => {
+            event.reply('db-status', "conectado")
+        }, 500)
     }
-  })
-  
-  // IMPORTANTE! Desconectar do banco de dados quando a aplicação for encerrada
-  app.on('before-quit', () => {
+})
+
+// IMPORTANTE! Desconectar do banco de dados quando a aplicação for encerrada
+app.on('before-quit', () => {
     desconectar()
-  })
+})
 
 //Templete do menu
 const template = [
@@ -250,7 +253,7 @@ const template = [
         submenu: [
             {
                 label: 'Clientes',
-                click:() => relatorioClientes()
+                click: () => relatorioClientes()
             }
         ]
     },
@@ -315,7 +318,7 @@ ipcMain.on('new-client', async (event, client) => {
     //Importante! Teste de recebimento dos dados do cliente
     console.log(client)
     // Cadastrar a  estrtura de dados no banco de dados no mongodb
-    try{
+    try {
         //Criar uma nova estrutura de dados usando a classe modelo
         //Atenção! OS atributos precisam ser identicos ao modelo de dados clientes.js
         //e os valores são definidos pelo conteúdo ao objeto client
@@ -344,70 +347,144 @@ ipcMain.on('new-client', async (event, client) => {
             buttons: ['OK']
         }).then((result) => {
             //Ação ao pressionar o botão
-            if(result.response === 0){
+            if (result.response === 0) {
                 //Enviar um pedido para o renderizador limpar os campos e resetar as configurações pré definidas (rotulo preload)
                 event.reply('reset-form')
             }
         });
-    }catch (error){
+    } catch (error) {
         // Se o código de erro for 11000 (cpf duplicado) enviar uma mensagem ao usuario 
-        if(error.code === 11000){
+        if (error.code === 11000) {
             dialog.showMessageBox({
                 type: 'error',
                 title: "Atenção!",
                 message: "CPF já está cadastrado\nverifique se digitou corretamente",
                 buttons: ['OK']
             }).then((result) => {
-                if(result.response === 0){
+                if (result.response === 0) {
                     //Limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
                 }
             })
         }
         console.log(error)
     }
-}) 
+})
 
 //Fim - Clientes - CRUD CREATE==============================
 
 //Relátorio de clientes ======================================
 async function relatorioClientes() {
-    try{
+    try {
         // passo 1: consultar o banco de dados e obter a listagem de clientes cadastrados por ordem alfabética
-        const clientes = await clientModel.find().sort({nomeCliente: 1})
+        const clientes = await clientModel.find().sort({ nomeCliente: 1 })
         //teste de recebimento da listagem de clientes
-        // console.log(clientes)
+        console.log(clientes)
 
         //Passo 2: formatação do documento
-        //p - portrait | 1 - landscape | mm e a4 (folha)
+        //p - portrait | 1 - landscape | mm e a4 (folha a4 (210x279m))
         const doc = new jsPDF('p', 'mm', 'a4')
+
+        //Inserir imagens no documento PDF
+        // imagePath (caminho da imagem que será inserida no PDF)
+        // imageBase64 (Uso da biblioteca fs para ler o arquivo no formato png)
+        const imagePath = path.join(__dirname, 'src', 'public', 'img', 'logoMoto.jpg')
+        const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' })
+        doc.addImage(imageBase64, 'JPG', 5, 8) //5mm, 8mm
+
         //definir o tamanho da fonte
         doc.setFontSize(26)
         //Escrevendo um texto (título)
-        doc.text("Relatório de clientes", 14, 20)//x, y (mm)
+        doc.text("Relatório de clientes", 14, 45)//x, y (mm)
 
         //Inserir a data atual no relatório
         const dataAtual = new Date().toLocaleDateString('pt-br')
         doc.setFontSize(12)
         doc.text(`Data: ${dataAtual}`, 160, 10)
         //Variável de apoio na formação
-        let y = 45
+        let y = 60
         doc.text("Nome", 14, y)
         doc.text("Telefone", 80, y)
         doc.text("Email", 130, y)
         y += 5
         // Desenhar a linha
         doc.setLineWidth(0.5)// espessura da linha
-        doc.line(10,y, 200, y) // 10 (Inicio) e 200 (fim)
-        
+        doc.line(10, y, 200, y) // 10 (Inicio) e 200 (fim)
+
+        //Renderizar os clientes cadastro no banco
+        y += 10 //Espaçamento da linha
+        //Percorrer o vetor clientes(obtido no banco) usando o laço forEach (equivale a laço for)
+        clientes.forEach((c) => {
+            //Adicionar outra página se a folha inteira for preenchida (estratágeia da folha)
+            // folha a4 y = 270m
+            if (y > 280) {
+                doc.addPage()
+                y = 20 //Resetar a variável y
+                //redesenhar o cabeçalho
+                doc.text("Nome", 14, y)
+                doc.text("Telefone", 80, y)
+                doc.text("Email", 130, y)
+                y += 5
+                doc.setLineWidth(0.5)// espessura da linha
+                doc.line(10, y, 200, y)
+                y += 10
+            }
+
+            doc.text(c.nomeCliente, 14, y),
+                doc.text(c.foneCliente, 80, y),
+                doc.text(c.emailCliente || "N/A", 130, y)
+            y += 10 //Quebra de linha
+
+        })
+
+        //Adicionar numeração automática de páginas
+        const paginas = doc.internal.getNumberOfPages()
+        for (let i = 1; i <= paginas; i++) {
+            doc.setPage(i)
+            doc.setFontSize(10)
+            doc.text(`Páginas ${i} de ${paginas}`, 105, 290, { align: 'center' })
+        }
+
         //Definir o caminho do arquivo temporário
         const tempDir = app.getPath('temp')
-        const filePath = path.join(tempDir,'clientes.pdf')
+        const filePath = path.join(tempDir, 'clientes.pdf')
 
         //Salvar temporariamente o arquivo
         doc.save(filePath)
         //Abrir o arquivo no aplicativo padrão de leitura de pdf do computador do usuario
         shell.openPath(filePath)
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
+
+//Create OS=====================================
+
+// CRUD Os
+
+ipcMain.on('new-os', async (event, os) => {
+    console.log(os)
+    try {
+        const newOs = new osModel({
+            valor: os.valorOS,
+            dadosEquipa: os.dadosEq,
+            problemaCliente: problemaCli,
+            diagTecnico: diagTecnico,
+            pecasReparo: pecasReparo,
+            statusOS: statusOS
+        })
+        await newOs.save()
+        dialog.showMessageBox({
+            type: 'info',
+            title: "Aviso",
+            message: "Os adicionado com sucesso",
+            buttons: ['OK']
+        }).then((result) => {
+            if (result.response === 0) {
+                event.reply('reset-form')
+            }
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})

@@ -33,17 +33,7 @@ frmOS.addEventListener('submit', async (event) => {
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const os = {
-        nameCli: valorOS.value,
-        cpfCli: prazoOS.value,
-        emailCli: dadosEqOS.value,
-        foneCli: problemaOS.value,
-        cepCli: diagOS.value,
-        logfCli: logClient.value,
-        numCli: numClient.value,
-        complementoCli: complementoClient.value,
-        bairroCli: bairroClient.value,
-        cidadeCli: cidadeClient.value,
-        ufCli: ufClient.value
+        
     }
     //Enviar ao main o objeto OS - Passo 2 (fluxo)
     //Uso do preload.js
