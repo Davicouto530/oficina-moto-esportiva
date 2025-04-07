@@ -13,8 +13,11 @@ const { conectar, desconectar } = require("./database.js")
 //Importação do schema cliente conectar e desconectar (módulo de conexão)
 const clientModel = require("./src/models/Clientes.js")
 
-//Importação do modelo de dados do cliente
+//Importação do modelo de dados do os
 const OSModel = require("./src/models/os.js")
+
+//Importação do modelo de dados do moto
+const motoModel = require("./src/models/placamoto.js")
 
 //Importação do pacote jspdf (npm i jspdf)
 const { jspdf, default: jsPDF } = require('jspdf')
@@ -142,7 +145,11 @@ function placamotoWindow() {
             height: 720,
             //autoHideMenuBar: true,
             parent: main,
-            modal: true
+            modal: true,
+            //Ativação do preload.js
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
         })
     }
     placamoto.loadFile('./src/views/placamoto.html')
@@ -483,6 +490,39 @@ ipcMain.on('new-os', async (event, os) => {
             type: 'info',
             title: "Aviso",
             message: "Os adicionado com sucesso",
+            buttons: ['OK']
+        }).then((result) => {
+            if (result.response === 0) {
+                event.reply('reset-form')
+            }
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//Create Cadastro Moto=====================================
+
+// CRUD Moto
+
+ipcMain.on('new-moto', async (event, moto) => {
+    console.log(moto)
+    try {
+        const newMoto = new motoModel({
+            placaMoto: moto.placaMoto,
+            marcaMoto: moto.marcaM,
+            modeloMoto: moto.modeloM,
+            anoMoto: moto.anoM,
+            problemaTecnico: moto.probleM,
+            cor: moto.corMoto
+        })
+        await newMoto.save()
+
+        dialog.showMessageBox({
+            type: 'info',
+            title: "Aviso",
+            message: "Moto adicionada com sucesso",
             buttons: ['OK']
         }).then((result) => {
             if (result.response === 0) {

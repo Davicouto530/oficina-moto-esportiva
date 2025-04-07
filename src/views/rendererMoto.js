@@ -18,8 +18,7 @@ let marcaMoto = document.getElementById("inputMarcaNameMoto");
 let modeloMoto = document.getElementById("inputModeloMoto");
 let anoMoto = document.getElementById("inputAnoMoto");
 let probleMoto = document.getElementById("inputProblemaMoto");
-let pecasRepOS = document.getElementById("inputPecasRepOS");
-let statusOS = document.getElementById("inputStatusOS");
+let corMoto = document.getElementById("inputCorMoto");
 
 //==========================================================================
 //CRUD CREATE E UPDATE
@@ -29,21 +28,20 @@ frmMoto.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(valorOS.value, prazoOS.value, dadosEqOS.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value)
+    console.log(placa.value, marcaMoto.value, modeloMoto.value, anoMoto.value, probleMoto.value, corMoto.value)
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
-    const os = {
-        valorOS: valorOS.value,
-        prazoOS: prazoOS.value,
-        dadosOS: dadosEqOS.value,
-        problemaOS: problemaOS.value,
-        diagOS: diagOS.value,
-        pecasOS: pecasRepOS.value,
-        statusOS: statusOS.value
+    const moto = {
+        placaMoto: placa.value,
+        marcaM: marcaMoto.value,
+        modeloM: modeloMoto.value,
+        anoM: anoMoto.value,
+        probleM: probleMoto.value,
+        corM: corMoto.value
     }
     //Enviar ao main o objeto OS - Passo 2 (fluxo)
     //Uso do preload.js
-    api.newOs(os)
+    api.newMoto(moto)
 })
 
 //Fim crud create update====================================================

@@ -3,9 +3,6 @@ const {model, Schema} = require('mongoose')
 
 //Criação da estrutura da coleção Clientes
 const cadastroMoto = new Schema({
-    nomeCliente: {
-        type: String
-    },
     placaMoto: {
         type: String
     },
