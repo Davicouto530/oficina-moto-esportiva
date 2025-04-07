@@ -41,8 +41,8 @@
                     Buscar Clientes
                 </label>
                 <div class="d-flex">
-                    <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false">
-                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchClient()">Buscar</button>
+                    <input type="text" class="form-control" id="searchOS" maxlength="30" spellcheck="false">
+                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchOS()">Buscar</button>
                 </div>
 
             </div>
@@ -112,10 +112,10 @@
                 <label for="inputStatusOS" class="form-label">Status da OS</label>
                 <select class="form-select" id="inputStatusOS" name="OS">
                     <option value=""></option>
-                    <option value="">Pendente</option>
-                    <option value="">Em andamento</option>
-                    <option value="">Concluída</option>
-                    <option value="">Cancelada</option>
+                    <option>Pendente</option>
+                    <option>Em andamento</option>
+                    <option>Concluída</option>
+                    <option>Cancelada</option>
                 </select>
             </div>
 
@@ -133,6 +133,8 @@
 
     <!-- Bootstrap -->
     <script src="../public/js/bootstrap.min.js"></script>
+
+    <script src="rendererOS.js"></script>
 </body>
 
 </html>

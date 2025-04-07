@@ -14,7 +14,7 @@ const { conectar, desconectar } = require("./database.js")
 const clientModel = require("./src/models/Clientes.js")
 
 //Importação do modelo de dados do cliente
-const clienteModel = require("./src/models/os.js")
+const OSModel = require("./src/models/os.js")
 
 //Importação do pacote jspdf (npm i jspdf)
 const { jspdf, default: jsPDF } = require('jspdf')
@@ -161,7 +161,11 @@ function osWindow() {
             height: 720,
             //autoHideMenuBar: true,
             parent: main,
-            modal: true
+            modal: true,
+            //Ativação do preload.js
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
         })
     }
     os.loadFile('./src/views/os.html')
@@ -464,15 +468,17 @@ async function relatorioClientes() {
 ipcMain.on('new-os', async (event, os) => {
     console.log(os)
     try {
-        const newOs = new osModel({
+        const newOs = new OSModel({
             valor: os.valorOS,
-            dadosEquipa: os.dadosEq,
-            problemaCliente: problemaCli,
-            diagTecnico: diagTecnico,
-            pecasReparo: pecasReparo,
-            statusOS: statusOS
+            prazo: os.prazoOS,
+            dadosEquipa: os.dadosOS,
+            problemaCliente: os.problemaOS,
+            diagTecnico: os.diagOS,
+            pecasReparo: os.pecasOS,
+            statusDaOS: os.statusOS
         })
         await newOs.save()
+
         dialog.showMessageBox({
             type: 'info',
             title: "Aviso",

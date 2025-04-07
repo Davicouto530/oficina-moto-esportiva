@@ -1,6 +1,6 @@
 // Capturar o foco na busca pelo nome cliente
 //A constante "foco" obtem o elemento html(input) indentificado como "searchClinet"
-const foco = document.getElementById('searchOS');
+const foco = document.getElementById('searchMoto');
 
 //Iniciar a janela de clientes alterando as propriedades de alguns elementos
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //captura dos dados dos inputs do formulário (Passo 1: fluxo)
-let frmOS = document.getElementById("frmOS");
-let valorOS = document.getElementById("inputValorOS");
-let prazoOS = document.getElementById("inputPrazoOS");
-let dadosEqOS = document.getElementById("inputDadosEqOS");
-let problemaOS = document.getElementById("inputProblemaOS");
-let diagOS = document.getElementById("inputDiagnosticoOS");
+let frmMoto = document.getElementById("frmMoto");
+let placa = document.getElementById("inputPlacaMoto");
+let marcaMoto = document.getElementById("inputMarcaNameMoto");
+let modeloMoto = document.getElementById("inputModeloMoto");
+let anoMoto = document.getElementById("inputAnoMoto");
+let probleMoto = document.getElementById("inputProblemaMoto");
 let pecasRepOS = document.getElementById("inputPecasRepOS");
 let statusOS = document.getElementById("inputStatusOS");
 
@@ -25,7 +25,7 @@ let statusOS = document.getElementById("inputStatusOS");
 //CRUD CREATE E UPDATE
 
 //Evento associado botão submit (uso das validações do HTML)
-frmOS.addEventListener('submit', async (event) => {
+frmMoto.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
