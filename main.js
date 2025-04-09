@@ -19,6 +19,8 @@ const OSModel = require("./src/models/os.js")
 //Importação do modelo de dados do moto
 const motoModel = require("./src/models/placamoto.js")
 
+const funcModel = require("./src/models/funcionario.js")
+
 //Importação do pacote jspdf (npm i jspdf)
 const { jspdf, default: jsPDF } = require('jspdf')
 
@@ -126,7 +128,11 @@ function funcionariosWindow() {
             height: 720,
             //autoHideMenuBar: true,
             parent: main,
-            modal: true
+            modal: true,
+            //Ativação do preload.js
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
         })
     }
     funcionarios.loadFile('./src/views/funcionarios.html')
@@ -142,7 +148,7 @@ function placamotoWindow() {
     if (main) {
         placamoto = new BrowserWindow({
             width: 1010,
-            height: 720,
+            height: 560,
             //autoHideMenuBar: true,
             parent: main,
             modal: true,
@@ -248,37 +254,14 @@ const template = [
         ]
     },
     {
-        label: 'Pagamentos',
-        submenu: [
-            {
-                label: 'Registrar pagamento'
-
-            },
-            {
-                label: 'Histórico de pagamentos'
-            }
-        ]
-    },
-    {
         label: 'Relatório',
         submenu: [
             {
                 label: 'Clientes',
                 click: () => relatorioClientes()
-            }
-        ]
-    },
-    {
-        label: 'Serviços',
-        submenu: [
-            {
-                label: 'Lista de serviços oferecidos'
             },
             {
-                label: 'Estatísticas sobre os serviços mais realizados'
-            },
-            {
-                label: 'OS'
+                label: 'Histórico de serviços'
             }
         ]
     },
@@ -398,9 +381,9 @@ async function relatorioClientes() {
         //Inserir imagens no documento PDF
         // imagePath (caminho da imagem que será inserida no PDF)
         // imageBase64 (Uso da biblioteca fs para ler o arquivo no formato png)
-        const imagePath = path.join(__dirname, 'src', 'public', 'img', 'logoMoto.jpg')
+        const imagePath = path.join(__dirname, 'src', 'public', 'img', 'logoMotoRela.jpg')
         const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' })
-        doc.addImage(imageBase64, 'JPG', 5, 8) //5mm, 8mm
+        doc.addImage(imageBase64, 'JPG', 15, 10) //5mm, 8mm
 
         //definir o tamanho da fonte
         doc.setFontSize(26)
@@ -478,7 +461,7 @@ ipcMain.on('new-os', async (event, os) => {
         const newOs = new OSModel({
             valor: os.valorOS,
             prazo: os.prazoOS,
-            dadosEquipa: os.dadosOS,
+            funcioResp: os.funcRespon,
             problemaCliente: os.problemaOS,
             diagTecnico: os.diagOS,
             pecasReparo: os.pecasOS,
@@ -514,8 +497,7 @@ ipcMain.on('new-moto', async (event, moto) => {
             marcaMoto: moto.marcaM,
             modeloMoto: moto.modeloM,
             anoMoto: moto.anoM,
-            problemaTecnico: moto.probleM,
-            cor: moto.corMoto
+            cor: moto.corM
         })
         await newMoto.save()
 
@@ -529,6 +511,40 @@ ipcMain.on('new-moto', async (event, moto) => {
                 event.reply('reset-form')
             }
 
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//Create Cadastro Funcionario=====================================
+
+// CRUD Funcionario
+
+ipcMain.on('new-funcionario', async (event, func) => {
+    console.log(func)
+    try {
+        const newFuncionario = new funcModel({
+            nomeFun: func.nomeF,
+            cpfFun: func.cpfF,
+            emailFun: func.emailF,
+            foneFun: func.foneF,
+            cepFun: func.cepF,
+            cargoFun: func.cargoF,
+            horaFun: func.horaF,
+            salarioFun: func.salarioF
+        })
+        await newFuncionario.save()
+
+        dialog.showMessageBox({
+            type: 'info',
+            title: "Aviso",
+            message: "Funcionario adicionado com sucesso",
+            buttons: ['OK']
+        }).then((result) => {
+            if (result.response === 0) {
+                event.reply('reset-form')
+            }
         })
     } catch (error) {
         console.log(error)

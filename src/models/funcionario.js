@@ -7,29 +7,31 @@
 const {model, Schema} = require('mongoose')
 
 //Criação da estrutura da coleção Clientes
-const cadastroOS = new Schema({
-    nomeCliente: {
+const funcionarioSchema = new Schema({
+    nomeFun: {
+        type: String
+    }, 
+    cpfFun: {
+        type: String,
+        unique: true,
+        index: true
+    },
+    emailFun: {
         type: String
     },
-    valor: {
+    foneFun: {
         type: String
     },
-    prazo: {
+    cepFun: {
         type: String
     },
-    funcioResp: {
+    cargoFun: {
         type: String
     },
-    problemaCliente: {
+    horaFun: {
         type: String
     },
-    diagTecnico: {
-        type: String
-    },
-    pecasReparo: {
-        type: String
-    },
-    statusDaOS: {
+    salarioFun: {
         type: String
     }
 }, {versionKey: false}) //Não versionar os dados armazenadas
@@ -37,5 +39,5 @@ const cadastroOS = new Schema({
 //Exportar para o main o modelo de dados
 //Clientes será o nome da coleção
 
-module.exports = model('OS', cadastroOS)
+module.exports = model('Funcionarios', funcionarioSchema)
 

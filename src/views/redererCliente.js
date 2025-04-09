@@ -17,7 +17,7 @@ function buscarCEP(){
             document.getElementById("inputAddressClient").value = dados.logradouro
             document.getElementById("inputNeighborhoodClient").value = dados.bairro
             document.getElementById("inputTSateClient").value = dados.localidade
-            document.getElementById("uf").value = dados.uf
+            document.getElementById("inputUfClient").value = dados.uf
         })
         .catch(error => console.log(error))
 };

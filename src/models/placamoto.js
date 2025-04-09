@@ -15,9 +15,6 @@ const cadastroMoto = new Schema({
     anoMoto: {
         type: String
     },
-    problemaTecnico: {
-        type: String
-    },
     cor: {
         type: String
     }

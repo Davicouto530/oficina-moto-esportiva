@@ -1,0 +1,2 @@
+tirar o problema do cadastro de motos
+trocar "dados do equipamento" para mecanico responsavel 

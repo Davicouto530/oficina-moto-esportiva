@@ -17,7 +17,6 @@ let placa = document.getElementById("inputPlacaMoto");
 let marcaMoto = document.getElementById("inputMarcaNameMoto");
 let modeloMoto = document.getElementById("inputModeloMoto");
 let anoMoto = document.getElementById("inputAnoMoto");
-let probleMoto = document.getElementById("inputProblemaMoto");
 let corMoto = document.getElementById("inputCorMoto");
 
 //==========================================================================
@@ -28,7 +27,7 @@ frmMoto.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(placa.value, marcaMoto.value, modeloMoto.value, anoMoto.value, probleMoto.value, corMoto.value)
+    console.log(placa.value, marcaMoto.value, modeloMoto.value, anoMoto.value, corMoto.value)
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const moto = {
@@ -36,7 +35,6 @@ frmMoto.addEventListener('submit', async (event) => {
         marcaM: marcaMoto.value,
         modeloM: modeloMoto.value,
         anoM: anoMoto.value,
-        probleM: probleMoto.value,
         corM: corMoto.value
     }
     //Enviar ao main o objeto OS - Passo 2 (fluxo)

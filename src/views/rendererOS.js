@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let frmOS = document.getElementById("frmOS");
 let valorOS = document.getElementById("inputValorOS");
 let prazoOS = document.getElementById("inputPrazoOS");
-let dadosEqOS = document.getElementById("inputDadosEqOS");
+let funcRespOs = document.getElementById("inputFuncRespOS");
 let problemaOS = document.getElementById("inputProblemaOS");
 let diagOS = document.getElementById("inputDiagnosticoOS");
 let pecasRepOS = document.getElementById("inputPecasRepOS");
@@ -29,13 +29,13 @@ frmOS.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(valorOS.value, prazoOS.value, dadosEqOS.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value)
+    console.log(valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value)
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const os = {
         valorOS: valorOS.value,
         prazoOS: prazoOS.value,
-        dadosOS: dadosEqOS.value,
+        funcRespon: funcRespOs.value,
         problemaOS: problemaOS.value,
         diagOS: diagOS.value,
         pecasOS: pecasRepOS.value,

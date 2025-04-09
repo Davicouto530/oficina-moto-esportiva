@@ -20,7 +20,8 @@ contextBridge.exposeInMainWorld('api', {
     newClient: (client) => ipcRenderer.send('new-client', client),
     resetForm: (args) => ipcRenderer.on('reset-form', args),
     newOs: (os) => ipcRenderer.send('new-os', os),
-    newMoto: (moto) => ipcRenderer.send('new-moto', moto)
+    newMoto: (moto) => ipcRenderer.send('new-moto', moto),
+    newFuncionario: (func) => ipcRenderer.send('new-funcionario', func)
 })
 
 function dbStatus(message) {
