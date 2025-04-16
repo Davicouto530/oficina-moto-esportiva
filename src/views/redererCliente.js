@@ -22,6 +22,9 @@ function buscarCEP(){
         .catch(error => console.log(error))
 };
 
+//Vetor global que sera usado na manipulação dos dados
+let arrayClient = []
+
 // Capturar o foco na busca pelo nome cliente
 //A constante "foco" obtem o elemento html(input) indentificado como "searchClinet"
 const foco = document.getElementById('searchClient');
@@ -81,6 +84,48 @@ frmClient.addEventListener('submit', async (event) => {
 })
 
 //Fim crud create update====================================================
+
+//CRUD READ====================================================================
+
+//CRUD READ====================================================================
+
+function buscarCliente(){
+    //Passo 1: Capturar o nome do cliente
+    let name = document.getElementById("searchClient").value
+    console.log(name);
+    api.searchName(name);// Passo 2: envio de nome ao main
+
+    //Recebimento dos dados cliente
+    api.renderClient((event, dataClient) => {
+        console.log(dataClient)//Teste passo 5
+        //Passo 6: renderizar os dados do clientes no formulário
+        // - Criar um vetor global para manipulação dos dados
+        // - Criar uma constante para converter os dados recebidos que estão no formato string para o formato JSON
+        // Usar o laço forEach para percorrer o vetor e setar os campos (caixa de textos do formula´rio)
+        const dadosCliente = JSON.parse(dataClient)
+
+        //atribuir ao array 
+        arrayClient = dadosCliente
+        //extrair os dados do cliente
+        arrayClient.forEach((c) => {
+            nameClient.value = c.nomeCliente,
+            cpfClient.value = c.cpfCliente,
+            emailClient.value = c.emailCliente,
+            foneClient.value = c.foneCliente,
+            cepClient.value = c.cepCliente,
+            logClient.value = c.logradouroCliente,
+            numClient.value = c.numeroCliente,
+            complementoClient.value = c.complementoCliente,
+            bairroClient.value = c.bairroCliente,
+            cidadeClient.value = c.cidadeCliente,
+            ufClient.value = c.ufCliente
+        });
+    })
+}
+
+//FIM CRUD READ====================================================================
+
+//FIM CRUD READ====================================================================
 
 //=============================================================================
 //Reset form===================================================================
