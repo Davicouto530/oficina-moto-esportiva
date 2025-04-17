@@ -563,7 +563,7 @@ ipcMain.on('search-name', async (event, name) => {
     try {
         const dataClient  = await clientModel.find({
             $or: [
-              { nomeClient: new RegExp(name, 'i') },
+              { nomeCliente: new RegExp(name, 'i') },
               { cpfCliente: new RegExp(name, 'i') }
             ]
           })
