@@ -553,6 +553,16 @@ ipcMain.on('new-funcionario', async (event, func) => {
 
 //Crud Read ======================================================
 
+//Validação de busca (preenchimento obrigatoria)
+ipcMain.on('validate-search', () => {
+    dialog.showMessageBox({
+        type: 'warning',
+        title: "ATENÇÂO!",
+        message: "Preencha o campo de buscas",
+        buttons: ["OK"]
+    })
+})
+
 ipcMain.on('search-name', async (event, name) => {
     console.log("teste IPC search-name")
 
@@ -568,6 +578,26 @@ ipcMain.on('search-name', async (event, name) => {
             ]
           })
         console.log(dataClient)//Teste do pásso 3 e 4
+
+        //Melhoria de experiência do usuário (se o cliente não estiver cadastrado, alertar o usuário e questionar se ele quer capturar este cliente, se não quiser cadastrar, limpar os campos, se quiser cadastrar recortar o nome do cliente ou o cpf do campo de busca e colar no campo nome ou cpf).
+        //Se o vetor estiver vazio [] (cliente não cadastrado)
+        if(dataClient.length === 0){
+            dialog.showMessageBox({
+                type: 'warning',
+                title: "Aviso",
+                message: "Cliente não cadastro. \n Deseja cadastrar esse cliente?",
+                defaultId: 0,
+                buttons: ['SIM', 'NÃO'] // [0, 1]
+            }).then((result) => {
+                if(result.response === 0){
+                    //Enviar ao renderizador um pedido para setar os campos (recortar do campo de busca e colar no campo nome)
+                    event.reply('set-client')
+                }else {
+                    //Limpar formulário
+                    event.reply('reset-form')
+                }
+            })
+        }
 
         //Passo 5: 
         //Enviando os dados do cliente ao rendererCliente
