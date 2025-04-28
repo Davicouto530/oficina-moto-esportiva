@@ -18,6 +18,11 @@
     cursor: none;
 }
 
+/* ocultar o campo id do cliente (na página cliente do sistema) */
+#idClient{
+    display: none;
+}
+
 footer{
     width: 100%;
     height: 40px;

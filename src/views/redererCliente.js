@@ -52,6 +52,9 @@ let bairroClient = document.getElementById("inputNeighborhoodClient");
 let cidadeClient = document.getElementById("inputTSateClient");
 let ufClient = document.getElementById("inputUfClient");
 
+//Captura do id do cliente (usado no delete e update)
+let id = document.getElementById('idClient');
+
 //========================================================
 //Manipulação da tecla "Enter"
 
@@ -137,6 +140,7 @@ function buscarCliente(){
             arrayClient = dadosCliente
             //extrair os dados do cliente
             arrayClient.forEach((c) => {
+                id.value = c._id,
                 nameClient.value = c.nomeCliente,
                     cpfClient.value = c.cpfCliente,
                     emailClient.value = c.emailCliente,
@@ -148,6 +152,10 @@ function buscarCliente(){
                     bairroClient.value = c.bairroCliente,
                     cidadeClient.value = c.cidadeCliente,
                     ufClient.value = c.ufCliente
+                    btnCreate.disabled = true
+                    //Desbloqueio dos botões editar e excluir
+                    btnUpdate.disabled = false
+                    btnDelete.disabled = false
             });
         })
     }
@@ -249,3 +257,12 @@ cpfClient.addEventListener("blur", validarCPF); // Validação ao perder o foco
 //parte 2, subir pro banco sem ponto
 
 // == CRUD Creat/Update ==================================
+
+// == CRUD Delete ==================================
+
+function excluirCliente(){
+    console.log(id.value)//Passo 1: receber do form o id
+    api.deleteClient(id.value)//Passo 2: enviar o id ao main
+}
+
+// == FIM CRUD Delete ==================================

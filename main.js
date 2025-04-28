@@ -609,3 +609,30 @@ ipcMain.on('search-name', async (event, name) => {
 })
 
 //Fim Crud Read ======================================================
+
+//CRUD DELETE ================================================
+
+ipcMain.on('delete-client', async (event, id) => {
+    console.log(id)//Teste do passo 2 (recebimento do id)
+
+    try {
+        //IMPORTANTE - confirmar a exclusão
+        //Client é o nome da variável que representa a janela
+        const {response} = await dialog.showMessageBox(client, {
+            type: 'warning',
+            title: "Atenção",
+            message: "Deseja excluir este cliente?\nEsta ação não podera ser desfeita.",
+            buttons: ['Cancelar','Excluir'] //[0,1]
+        })
+        if(response === 1){
+            console.log("teste")
+            //Passo 3: excluir o resgistro do cliente
+            const delClient = await clientModel.findByIdAndDelete(id)
+            event.reply('reset-form')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//FIM CRUD DELETE ================================================
