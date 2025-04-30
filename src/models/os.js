@@ -11,6 +11,9 @@ const cadastroOS = new Schema({
     nomeCliente: {
         type: String
     },
+    placaOs: {
+        type: String
+    },
     valor: {
         type: String
     },

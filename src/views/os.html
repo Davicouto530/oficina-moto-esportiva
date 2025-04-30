@@ -21,21 +21,14 @@
     <div class="container">
         <form id="frmOS" class="mt-2 row g-3">
 
-            <!-- Número da OS -->
-            <div class="col-md-2">
-                <label for="inputNumeroOS" class="form-label">Número da OS</label>
-                <input type="number" class="form-control" id="inputNumeroOS" spellcheck="false" disabled
-                    maxlength="30">
+            <!-- Placa  -->
+            <div class="col-md-6">
+                <label for="inputPlaca" class="form-label">Placa</label>
+                <input type="text" class="form-control" id="inputPlaca" spellcheck="false" maxlength="30">
             </div>
 
-            <!-- Data da abertura  -->
-            <div class="col-md-2">
-                <label for="inputDateOS" class="form-label">Data da Abertura</label>
-                <input type="date" class="form-control" id="inputDateOS" spellcheck="false" disabled maxlength="8">
-            </div>
-
-            <!-- Buscar cliente -->
-            <div class="col-md-6" id="buscarclientes">
+             <!-- Buscar cliente -->
+             <div class="col-md-6" id="buscarclientes">
                 <label for="inputNumeroOS" class="form-label">
                     Buscar Clientes
                 </label>
@@ -43,26 +36,6 @@
                     <input type="text" class="form-control" id="searchOS" maxlength="30" spellcheck="false">
                     <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchOS()">Buscar</button>
                 </div>
-
-            </div>
-
-            <!-- Nome cliente -->
-            <div class="col-md-4">
-                <label for="inputNameClient" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNameClient" disabled spellcheck="false" maxlength="30">
-            </div>
-
-            <!--CPF do cliente-->
-            <div class="col-md-4">
-                <label for="inputCPFClient" class="form-label">CPF</label>
-
-                <input type="text" class="form-control" id="inputCPFClient" disabled spellcheck="false" maxlength="30">
-            </div>
-
-            <!-- Telefone cliente -->
-            <div class="col-md-4">
-                <label for="inputIPhoneClient" class="form-label">Telefone</label>
-                <input type="text" class="form-control" id="inputIPhoneClient" disabled spellcheck="false" maxlength="30">
             </div>
 
             <!-- Linha -->
@@ -123,6 +96,7 @@
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
                 <button type="button" class="btn btn-danger" id="btnDelete">Delete</button>
+                <button type="submit" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
 
                 <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>
             </div>

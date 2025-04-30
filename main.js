@@ -459,6 +459,7 @@ ipcMain.on('new-os', async (event, os) => {
     console.log(os)
     try {
         const newOs = new OSModel({
+            placaOs: os.placaOs,
             valor: os.valorOS,
             prazo: os.prazoOS,
             funcioResp: os.funcRespon,
@@ -484,6 +485,7 @@ ipcMain.on('new-os', async (event, os) => {
         console.log(error)
     }
 })
+
 
 //Create Cadastro Moto=====================================
 
@@ -571,17 +573,17 @@ ipcMain.on('search-name', async (event, name) => {
     //find({nomeCliente: name}) - busca pelo nome
     //RegExp(name, i) - i (insensitive / Ignorar maiúsculo ou minúsculo)
     try {
-        const dataClient  = await clientModel.find({
+        const dataClient = await clientModel.find({
             $or: [
-              { nomeCliente: new RegExp(name, 'i') },
-              { cpfCliente: new RegExp(name, 'i') }
+                { nomeCliente: new RegExp(name, 'i') },
+                { cpfCliente: new RegExp(name, 'i') }
             ]
-          })
+        })
         console.log(dataClient)//Teste do pásso 3 e 4
 
         //Melhoria de experiência do usuário (se o cliente não estiver cadastrado, alertar o usuário e questionar se ele quer capturar este cliente, se não quiser cadastrar, limpar os campos, se quiser cadastrar recortar o nome do cliente ou o cpf do campo de busca e colar no campo nome ou cpf).
         //Se o vetor estiver vazio [] (cliente não cadastrado)
-        if(dataClient.length === 0){
+        if (dataClient.length === 0) {
             dialog.showMessageBox({
                 type: 'warning',
                 title: "Aviso",
@@ -589,10 +591,10 @@ ipcMain.on('search-name', async (event, name) => {
                 defaultId: 0,
                 buttons: ['SIM', 'NÃO'] // [0, 1]
             }).then((result) => {
-                if(result.response === 0){
+                if (result.response === 0) {
                     //Enviar ao renderizador um pedido para setar os campos (recortar do campo de busca e colar no campo nome)
                     event.reply('set-client')
-                }else {
+                } else {
                     //Limpar formulário
                     event.reply('reset-form')
                 }
@@ -618,13 +620,13 @@ ipcMain.on('delete-client', async (event, id) => {
     try {
         //IMPORTANTE - confirmar a exclusão
         //Client é o nome da variável que representa a janela
-        const {response} = await dialog.showMessageBox(client, {
+        const { response } = await dialog.showMessageBox(client, {
             type: 'warning',
             title: "Atenção",
             message: "Deseja excluir este cliente?\nEsta ação não podera ser desfeita.",
-            buttons: ['Cancelar','Excluir'] //[0,1]
+            buttons: ['Cancelar', 'Excluir'] //[0,1]
         })
-        if(response === 1){
+        if (response === 1) {
             console.log("teste")
             //Passo 3: excluir o resgistro do cliente
             const delClient = await clientModel.findByIdAndDelete(id)
@@ -636,3 +638,53 @@ ipcMain.on('delete-client', async (event, id) => {
 })
 
 //FIM CRUD DELETE ================================================
+
+//Crud UPDATE ====================================================
+
+ipcMain.on('update-client', async (event, client) => {
+    console.log(client)//Teste importante do recebimento dos dados do cliente
+
+    try {
+        //Criar uma nova estrutura de dados usando a classe modelo
+        //Atenção! OS atributos precisam ser identicos ao modelo de dados clientes.js
+        //e os valores são definidos pelo conteúdo ao objeto client
+        const updateClient = await clientModel.findByIdAndUpdate(
+            client.idCli,
+            {
+                nomeCliente: client.nameCli,
+                cpfCliente: client.cpfCli,
+                emailCliente: client.emailCli,
+                foneCliente: client.foneCli,
+                cepCliente: client.cepCli,
+                logradouroCliente: client.logfCli,
+                numeroCliente: client.numCli,
+                complementoCliente: client.complementoCli,
+                bairroCliente: client.bairroCli,
+                cidadeCliente: client.cidadeCli,
+                ufCliente: client.ufCli
+            },
+            {
+                new: true
+            }
+        )
+
+        //Messagem de confirmação
+        dialog.showMessageBox({
+            //Customização
+            type: 'info',
+            title: "Aviso",
+            message: "Dados do cliente alterados com sucesso",
+            buttons: ['OK']
+        }).then((result) => {
+            //Ação ao pressionar o botão
+            if (result.response === 0) {
+                //Enviar um pedido para o renderizador limpar os campos e resetar as configurações pré definidas (rotulo preload)
+                event.reply('reset-form')
+            }
+        });
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//FIM Crud UPDATE ====================================================

@@ -1,5 +1,5 @@
 //Buscar CEP
-function buscarCEP(){
+function buscarCEP() {
     //console.log("teste do evento blur");
 
     //Pegando a tag pelo input e colocando o valor dentro de "cep"
@@ -8,7 +8,7 @@ function buscarCEP(){
 
     //consumir a API do ViaCep
     let urlAPI = `https://viacep.com.br/ws/${cep}/json/`
-    
+
     //Acessando o web service para obter os dados
     fetch(urlAPI)
         .then(response => response.json())
@@ -59,17 +59,17 @@ let id = document.getElementById('idClient');
 //Manipulação da tecla "Enter"
 
 //Função para manipular o evento da tecla ENTER
-function teclaEnter(event){
-    if(event.key === "Enter"){
+function teclaEnter(event) {
+    if (event.key === "Enter") {
         event.preventDefault() //Ignorar o comportamento padrão
         //Associar o Enter e busca pelo cliente
-        
+
         buscarCliente()
     }
 }
 
 //Função para restaurar o padrão da tecla ENTER (submit)
-function restaurarEnter(){
+function restaurarEnter() {
     frmClient.removeEventListener("keydown", teclaEnter)
 }
 
@@ -86,34 +86,62 @@ frmClient.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(nameClient.value, cpfClient.value, emailClient.value, foneClient.value, cepClient.value, logClient.value, numClient.value, complementoClient.value, bairroClient.value, cidadeClient.value, ufClient.value)
-
+    console.log(nameClient.value, cpfClient.value, emailClient.value, foneClient.value, cepClient.value, logClient.value, numClient.value, complementoClient.value, bairroClient.value, cidadeClient.value, ufClient.value, id.value)
+    
+    //Executar o método para cadastrar um novo cliente
     // Limpa o CPF antes de salvar no banco
     let cpfSemFormatacao = cpfClient.value.replace(/\D/g, "");
-    //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
-    const client = {
-        nameCli: nameClient.value,
-        cpfCli: cpfSemFormatacao,
-        emailCli: emailClient.value,
-        foneCli: foneClient.value,
-        cepCli: cepClient.value,
-        logfCli: logClient.value,
-        numCli: numClient.value,
-        complementoCli: complementoClient.value,
-        bairroCli: bairroClient.value,
-        cidadeCli: cidadeClient.value,
-        ufCli: ufClient.value
+    
+    //estratégia usada para utilizar o submit para criar um novo cliente ou alterar os dados do cliente, se existir id significa que existe um cliente se não significa que é para adicionar um novo cliente
+    if (id.value === "") {
+        //Executar o método para alterar os dados do cliente
+        //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
+        console.log(id.value)
+        const client = {
+            nameCli: nameClient.value,
+            cpfCli: cpfSemFormatacao,
+            emailCli: emailClient.value,
+            foneCli: foneClient.value,
+            cepCli: cepClient.value,
+            logfCli: logClient.value,
+            numCli: numClient.value,
+            complementoCli: complementoClient.value,
+            bairroCli: bairroClient.value,
+            cidadeCli: cidadeClient.value,
+            ufCli: ufClient.value
+        }
+        api.newClient(client)
+        //Enviar ao main o objeto client - Passo 2 (fluxo)
+        //Uso do preload.js
+    } else {
+        //Executar o método para alterar os dados do cliente
+        //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
+        console.log(id.value)
+        const client = {
+            idCli: id.value,
+            nameCli: nameClient.value,
+            cpfCli: cpfSemFormatacao,
+            emailCli: emailClient.value,
+            foneCli: foneClient.value,
+            cepCli: cepClient.value,
+            logfCli: logClient.value,
+            numCli: numClient.value,
+            complementoCli: complementoClient.value,
+            bairroCli: bairroClient.value,
+            cidadeCli: cidadeClient.value,
+            ufCli: ufClient.value
+        }
+        api.updateClient(client)
+        //Enviar ao main o objeto client - Passo 2 (fluxo)
+        //Uso do preload.js
     }
-    //Enviar ao main o objeto client - Passo 2 (fluxo)
-    //Uso do preload.js
-    api.newClient(client)
 })
 
 //Fim crud create update====================================================
 
 //CRUD READ====================================================================
 
-function buscarCliente(){
+function buscarCliente() {
     //Passo 1: Capturar o nome do cliente
     let name = document.getElementById("searchClient").value
     console.log(name);
@@ -141,7 +169,7 @@ function buscarCliente(){
             //extrair os dados do cliente
             arrayClient.forEach((c) => {
                 id.value = c._id,
-                nameClient.value = c.nomeCliente,
+                    nameClient.value = c.nomeCliente,
                     cpfClient.value = c.cpfCliente,
                     emailClient.value = c.emailCliente,
                     foneClient.value = c.foneCliente,
@@ -152,10 +180,10 @@ function buscarCliente(){
                     bairroClient.value = c.bairroCliente,
                     cidadeClient.value = c.cidadeCliente,
                     ufClient.value = c.ufCliente
-                    btnCreate.disabled = true
-                    //Desbloqueio dos botões editar e excluir
-                    btnUpdate.disabled = false
-                    btnDelete.disabled = false
+                btnCreate.disabled = true
+                //Desbloqueio dos botões editar e excluir
+                btnUpdate.disabled = false
+                btnDelete.disabled = false
             });
         })
     }
@@ -171,8 +199,8 @@ api.setClient((args) => {
         cpfClient.focus()
         foco.value = ""
         cpfClient.value = campoBusca
-    } 
-    else if(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(campoBusca)){
+    }
+    else if (/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(campoBusca)) {
         cpfClient.focus()
         foco.value = ""
         cpfClient.value = campoBusca
@@ -197,7 +225,7 @@ function resetForm() {
 //Recebimento do pedido do main para resetar o formulário
 api.resetForm((args) => {
     resetForm()
-}) 
+})
 
 //Fim reset form===================================================================
 
@@ -260,7 +288,7 @@ cpfClient.addEventListener("blur", validarCPF); // Validação ao perder o foco
 
 // == CRUD Delete ==================================
 
-function excluirCliente(){
+function excluirCliente() {
     console.log(id.value)//Passo 1: receber do form o id
     api.deleteClient(id.value)//Passo 2: enviar o id ao main
 }
