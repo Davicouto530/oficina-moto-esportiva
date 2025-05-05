@@ -27,21 +27,17 @@
                 <input type="text" class="form-control" id="inputPlaca" spellcheck="false" maxlength="30">
             </div>
 
-             <!-- Buscar cliente -->
-             <div class="col-md-6" id="buscarclientes">
-                <label for="inputNumeroOS" class="form-label">
-                    Buscar Clientes
-                </label>
+            <!-- Buscar cliente -->
+            <div class="col-md-6" id="buscarclientes">
+                <label for="inputNumeroOS" class="form-label">Buscar Placa</label>
                 <div class="d-flex">
                     <input type="text" class="form-control" id="searchOS" maxlength="30" spellcheck="false">
-                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchOS()">Buscar</button>
+                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="buscarOs()">Buscar</button>
                 </div>
             </div>
 
             <!-- Linha -->
             <hr class="mt-4 border border-dark border -1">
-
-
 
             <!-- Valor -->
             <div class="col-md-4">
@@ -95,7 +91,7 @@
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
-                <button type="button" class="btn btn-danger" id="btnDelete">Delete</button>
+                <button type="button" class="btn btn-danger" id="btnDelete" onclick="excluirOs()">Delete</button>
                 <button type="submit" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
 
                 <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>

@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     foco.focus();
 });
 
+//Vetor global que sera usado na manipulação dos dados
+let arrayOs = []
+
 //captura dos dados dos inputs do formulário (Passo 1: fluxo)
 let frmOS = document.getElementById("frmOS");
 let placaOs = document.getElementById("inputPlaca");
@@ -59,3 +62,63 @@ function resetForm() {
 api.resetForm((args) => {
     resetForm()
 }) 
+
+//CRUD READ====================================================================
+
+function buscarOs() {
+    //Passo 1: Capturar o nome do cliente
+    let os = document.getElementById("searchOS").value
+    console.log(os);
+
+    //Validação de campo obrigatório
+    //se o campo de buscar não foi preenchido
+    if (os === "") {
+        //Enviar ao main um pedido para alertar o usuário
+        api.validateSearch()
+        foco.focus()
+    } else {
+        api.searchOs(os);// Passo 2: envio de nome ao main
+
+        //Recebimento dos dados cliente
+        api.renderOs((event, dataOs) => {
+            console.log(dataOs)//Teste passo 5
+            //Passo 6: renderizar os dados do clientes no formulário
+            // - Criar um vetor global para manipulação dos dados
+            // - Criar uma constante para converter os dados recebidos que estão no formato string para o formato JSON
+            // Usar o laço forEach para percorrer o vetor e setar os campos (caixa de textos do formula´rio)
+            const dadosOs = JSON.parse(dataOs)
+
+            //atribuir ao array 
+            arrayOs = dadosOs
+            //extrair os dados do cliente
+            arrayOs.forEach((o) => {
+                id.value = o._id,
+
+                placaOs.value = o.placaOs,
+                valorOS.value = o.valorOs,
+                prazoOS.value = o.prazoOs,
+                funcRespOs.value = o.funcRespOs,
+                problemaOS.value = o.problemaOS,
+                diagOS.value = o.diagOS,
+                pecasRepOS.value = o.pecasRepOS,
+                statusOS.value = o.statusOS 
+
+                btnCreate.disabled = true
+                //Desbloqueio dos botões editar e excluir
+                btnUpdate.disabled = false
+                btnDelete.disabled = false
+            });
+        })
+    }
+}
+
+//FIM CRUD READ====================================================================
+
+// == CRUD Delete OS ==================================
+
+function excluirOs() {
+    console.log(id.value)//Passo 1: receber do form o id
+    api.deleteOs(id.value)//Passo 2: enviar o id ao main
+}
+
+// == FIM CRUD Delete OS ==================================

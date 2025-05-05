@@ -262,6 +262,12 @@ const template = [
             },
             {
                 label: 'Histórico de serviços'
+            },
+            {
+                label: 'OS pendente'
+            },
+            {
+                label: 'OS concluídas'
             }
         ]
     },
@@ -515,6 +521,18 @@ ipcMain.on('new-moto', async (event, moto) => {
 
         })
     } catch (error) {
+        if (error.code === 11000) {
+            dialog.showMessageBox({
+                type: 'error',
+                title: "Atenção!",
+                message: "Placa já está cadastrada\nverifique se digitou corretamente",
+                buttons: ['OK']
+            }).then((result) => {
+                if (result.response === 0) {
+                    //Limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
+                }
+            })
+        }
         console.log(error)
     }
 })
@@ -688,3 +706,30 @@ ipcMain.on('update-client', async (event, client) => {
 })
 
 //FIM Crud UPDATE ====================================================
+
+//CRUD DELETE ================================================
+
+ipcMain.on('delete-os', async (event, id) => {
+    console.log(id)//Teste do passo 2 (recebimento do id)
+
+    try {
+        //IMPORTANTE - confirmar a exclusão
+        //OS é o nome da variável que representa a janela
+        const { response } = await dialog.showMessageBox(os, {
+            type: 'warning',
+            title: "Atenção",
+            message: "Deseja excluir esta OS?\nEsta ação não podera ser desfeita.",
+            buttons: ['Cancelar', 'Excluir'] //[0,1]
+        })
+        if (response === 1) {
+            console.log("teste")
+            //Passo 3: excluir o resgistro da OS
+            const delOs = await OSModel.findByIdAndDelete(id)
+            event.reply('reset-form')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+//FIM CRUD DELETE ================================================
