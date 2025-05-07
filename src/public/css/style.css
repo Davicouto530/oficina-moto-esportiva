@@ -52,3 +52,9 @@ footer p {
 .container h1 {
     font-size: 18px;
 }
+
+/*lista de clientes vinculados a OS*/
+#viewListSuggestion {
+    z-index: 2;
+    max-width: 390px;
+}

@@ -63,53 +63,86 @@ api.resetForm((args) => {
     resetForm()
 }) 
 
+//Buscar avançada - estilo google ============================================
+
+//Buscar avançada - estilo google ============================================
+
+//Capturar os ids referente ao campo do nome
+const input = document.getElementById("searchOS")
+
+//Capturar o id da ul de lista de sugestão de clientes
+const suggestionList = document.getElementById("viewListSuggestion")
+
+let idClient = document.getElementById("idClient")
+
+let nameClient = document.getElementById("inputNameClient")
+let phoneClient = document.getElementById('inputPhoneClient')
+let cpfClient = document.getElementById('inputCPFClient')
+
+//Vetor 
+let arrayClients = []
+
+// captura em tempo real do input (digitação de caracteres na caixa de busca)
+input.addEventListener('input', () => {
+    // Passo 1: capturar o que for digitado na caixa de busca e converter tudo para letras minusculas (auxilio ao filtro)
+    const search = input.value.toLowerCase()
+    ///console.log(search) // teste de apoio a logica 
+
+    // passo 2: enviar ao main um pedido de busca de clientes pelo nome (via preload - api (IPC))
+    api.searchClients()
+
+    // Recebimentos dos clientes do banco de dados (passo 3)
+    api.listClients((event, clients) => {
+        ///console.log(clients) // teste do passo 3
+        // converter o vetor para JSON os dados dos clientes recebidos
+        const dataClients = JSON.parse(clients)
+        // armazenar no vetor os dados dos clientes
+        arrayClients = dataClients
+        // Passo 4: Filtrar todos os dados dos clientes extraindo nomes que tenham relação com os caracteres digitados na busca em tempo real 
+        const results = arrayClients.filter(c =>
+            c.nomeCliente && c.nomeCliente.toLowerCase().includes(search)
+        ).slice(0, 10) // maximo 10 resultados
+        ///console.log(results) // IMPORTANTE para o entendimento
+        // Limpar a lista a cada caractere digitado
+        suggestionList.innerHTML = ""
+        // Para cada resultado gerar um item da lista <li>
+        results.forEach(c => {
+            // criar o elemento li
+            const item = document.createElement('li')
+            // Adicionar classes bootstrap a cada li criado 
+            item.classList.add('list-group-item','list-group-item-action')
+            // exibir nome do cliente
+            item.textContent = c.nomeCliente
+
+            // adicionar os lis criados a lista ul
+            suggestionList.appendChild(item)
+
+            //Adicionar um evento de clique no item na lista para preencher os campos do comportamento
+            item.addEventListener("click", () => {
+                idClient.value = c._id
+                nameClient.value = c.nameClient
+                phoneClient.value = c.foneCliente
+
+                input.value = ""
+                suggestionList.value = ""
+            })
+        })
+
+    })
+})
+
+//Ocultar a lista ao clicar fora
+document.addEventListener("click", (event) => {
+    if(!input.contains(event.target) && !suggestionList.contains(event.target)){
+        suggestionList.innerHTML = ""
+    }
+})
+
 //CRUD READ====================================================================
 
-function buscarOs() {
-    //Passo 1: Capturar o nome do cliente
-    let os = document.getElementById("searchOS").value
-    console.log(os);
-
-    //Validação de campo obrigatório
-    //se o campo de buscar não foi preenchido
-    if (os === "") {
-        //Enviar ao main um pedido para alertar o usuário
-        api.validateSearch()
-        foco.focus()
-    } else {
-        api.searchOs(os);// Passo 2: envio de nome ao main
-
-        //Recebimento dos dados cliente
-        api.renderOs((event, dataOs) => {
-            console.log(dataOs)//Teste passo 5
-            //Passo 6: renderizar os dados do clientes no formulário
-            // - Criar um vetor global para manipulação dos dados
-            // - Criar uma constante para converter os dados recebidos que estão no formato string para o formato JSON
-            // Usar o laço forEach para percorrer o vetor e setar os campos (caixa de textos do formula´rio)
-            const dadosOs = JSON.parse(dataOs)
-
-            //atribuir ao array 
-            arrayOs = dadosOs
-            //extrair os dados do cliente
-            arrayOs.forEach((o) => {
-                id.value = o._id,
-
-                placaOs.value = o.placaOs,
-                valorOS.value = o.valorOs,
-                prazoOS.value = o.prazoOs,
-                funcRespOs.value = o.funcRespOs,
-                problemaOS.value = o.problemaOS,
-                diagOS.value = o.diagOS,
-                pecasRepOS.value = o.pecasRepOS,
-                statusOS.value = o.statusOS 
-
-                btnCreate.disabled = true
-                //Desbloqueio dos botões editar e excluir
-                btnUpdate.disabled = false
-                btnDelete.disabled = false
-            });
-        })
-    }
+function inputOs() {
+    // console.log("teste")
+    api.searchOs()
 }
 
 //FIM CRUD READ====================================================================

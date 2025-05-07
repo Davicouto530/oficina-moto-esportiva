@@ -21,19 +21,28 @@
     <div class="container">
         <form id="frmOS" class="mt-2 row g-3">
 
-            <!-- Placa  -->
-            <div class="col-md-6">
-                <label for="inputPlaca" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="inputPlaca" spellcheck="false" maxlength="30">
-            </div>
-
             <!-- Buscar cliente -->
             <div class="col-md-6" id="buscarclientes">
                 <label for="inputNumeroOS" class="form-label">Buscar Placa</label>
                 <div class="d-flex">
                     <input type="text" class="form-control" id="searchOS" maxlength="30" spellcheck="false">
-                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="buscarOs()">Buscar</button>
+                    <button type="button" class="btn btn-dark ml-2" id="btnRead" onclick="searchOs()">Buscar</button>
                 </div>
+                <!--Lista de sugestão - estilo Google-->
+                <ul id="viewListSuggestion" class="list-group position-absolute w-100"></ul>
+            </div>
+
+            <!-- Placa -->
+            <div class="col-md-3">
+                <label for="inputPlaca" class="form-label">Placa</label>
+                <input type="text" class="form-control" disabled id="inputPlaca" spellcheck="false" maxlength="30">
+            </div>
+
+
+            <!-- Numero da OS -->
+            <div class="col-md-3">
+                <label for="inputNumOs" class="form-label">Nº OS</label>
+                <input type="number" class="form-control" disabled id="inputNumOs" spellcheck="false" maxlength="30">
             </div>
 
             <!-- Linha -->
@@ -89,10 +98,11 @@
 
             <!--Botões-->
             <div class="mt-5">
-                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-success" id="btnCreate">Gerar OS</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
                 <button type="button" class="btn btn-danger" id="btnDelete" onclick="excluirOs()">Delete</button>
                 <button type="submit" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
+                <button type="submit" class="btn btn-dark" onclick="inputOs()">Buscar OS</button>
 
                 <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>
             </div>

@@ -27,6 +27,10 @@ const { jspdf, default: jsPDF } = require('jspdf')
 //importação de biblioteca fs (nativa do js) para manipulação de dados
 const fs = require('fs')
 
+//Importação do recurso 'electron-prompt' (dialog de input)
+//!º Instalar o recurso: npm i 'electron-prompt'
+const prompt = require('electron-prompt')
+
 //Janela principal
 let win
 const createWindow = () => {
@@ -267,7 +271,8 @@ const template = [
                 label: 'OS pendente'
             },
             {
-                label: 'OS concluídas'
+                label: 'OS concluídas',
+                click: () => relatorioOsConcluida()
             }
         ]
     },
@@ -733,3 +738,129 @@ ipcMain.on('delete-os', async (event, id) => {
 })
 
 //FIM CRUD DELETE ================================================
+
+// ============================================================
+// == Buscar OS ===============================================
+
+ipcMain.on('search-os', (event) => {
+    //console.log("teste: busca OS")
+    prompt({
+        title: 'Buscar OS',
+        label: 'Digite o número da OS:',
+        inputAttrs: {
+            type: 'text'
+        },
+        type: 'input',
+        width: 400,
+        height: 200
+    }).then((result) => {
+        if (result !== null) {
+            console.log(result)
+            //buscar a os no banco pesquisando pelo valor do result (número da OS)
+
+        }
+    })
+})
+
+// == Fim - Buscar OS =========================================
+// ============================================================
+
+//Buscar cliente para vincular na os - estilo google======================================
+ipcMain.on('search-clients', async (event) => {
+    try {
+        //Buscar no banco os clientes pelo nome em ordem alfabética
+        const clients = await clientModel.find().sort({ nomeCliente: 1 })
+        console.log(clients)//Teste do passo 2
+
+        //Passo 3: envio dos clientes para 
+        event.reply('list-clients', JSON.stringify(clients))
+    } catch (error) {
+        console.log(error)
+    }
+})
+//FIM Buscar cliente para vincular na os======================================
+
+//Relátorio de OS concluidas ======================================
+async function relatorioOsConcluida() {
+    try {
+        // passo 1: consultar o banco de dados e obter a listagem de clientes cadastrados por ordem alfabética
+        const OsConcluida = await OSModel.find().sort({ OSconcluida: "Concluida" })
+        //teste de recebimento da listagem de clientes
+        console.log(OsConcluida)
+
+        //Passo 2: formatação do documento
+        //p - portrait | 1 - landscape | mm e a4 (folha a4 (210x279m))
+        const doc = new jsPDF('p', 'mm', 'a4')
+
+        //Inserir imagens no documento PDF
+        // imagePath (caminho da imagem que será inserida no PDF)
+        // imageBase64 (Uso da biblioteca fs para ler o arquivo no formato png)
+        const imagePath = path.join(__dirname, 'src', 'public', 'img', 'logoMotoRela.jpg')
+        const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' })
+        doc.addImage(imageBase64, 'JPG', 15, 10) //5mm, 8mm
+
+        //definir o tamanho da fonte
+        doc.setFontSize(26)
+        //Escrevendo um texto (título)
+        doc.text("Relatório de OS concluida", 14, 45)//x, y (mm)
+
+        //Inserir a data atual no relatório
+        const dataAtual = new Date().toLocaleDateString('pt-br')
+        doc.setFontSize(12)
+        doc.text(`Data: ${dataAtual}`, 160, 10)
+        //Variável de apoio na formação
+        let y = 60
+        doc.text("Placa", 14, y)
+        doc.text("Numero da OS", 80, y)
+        doc.text("Serviço", 130, y)
+        y += 5
+        // Desenhar a linha
+        doc.setLineWidth(0.5)// espessura da linha
+        doc.line(10, y, 200, y) // 10 (Inicio) e 200 (fim)
+
+        //Renderizar os clientes cadastro no banco
+        y += 10 //Espaçamento da linha
+        //Percorrer o vetor clientes(obtido no banco) usando o laço forEach (equivale a laço for)
+        OsConcluida.forEach((c) => {
+            //Adicionar outra página se a folha inteira for preenchida (estratágeia da folha)
+            // folha a4 y = 270m
+            if (y > 280) {
+                doc.addPage()
+                y = 20 //Resetar a variável y
+                //redesenhar o cabeçalho
+                doc.text("Placa", 14, y)
+                doc.text("Numero da OS", 80, y)
+                doc.text("Serviço", 130, y)
+                y += 5
+                doc.setLineWidth(0.5)// espessura da linha
+                doc.line(10, y, 200, y)
+                y += 10
+            }
+
+            doc.text(c.OSconcluida, 14, y),
+                doc.text(c.placaOs, 80, y),
+                doc.text(c.problemaOS || "N/A", 130, y)
+            y += 10 //Quebra de linha
+
+        })
+
+        //Adicionar numeração automática de páginas
+        const paginas = doc.internal.getNumberOfPages()
+        for (let i = 1; i <= paginas; i++) {
+            doc.setPage(i)
+            doc.setFontSize(10)
+            doc.text(`Páginas ${i} de ${paginas}`, 105, 290, { align: 'center' })
+        }
+
+        //Definir o caminho do arquivo temporário
+        const tempDir = app.getPath('temp')
+        const filePath = path.join(tempDir, 'os.pdf')
+
+        //Salvar temporariamente o arquivo
+        doc.save(filePath)
+        //Abrir o arquivo no aplicativo padrão de leitura de pdf do computador do usuario
+        shell.openPath(filePath)
+    } catch (error) {
+        console.log(error)
+    }
+}
