@@ -1,6 +1,6 @@
 # 🏍️ Oficina Moto Esportiva
 
-Sistema desktop desenvolvido para gerenciar ordens de serviço em oficinas especializadas em motos esportivas. Este projeto visa otimizar o controle de atendimentos, cadastros de clientes e serviços realizados.
+Sistema desktop fictício desenvolvido para gerenciar ordens de serviço em oficinas especializadas em motos esportivas. Este projeto visa otimizar o controle de atendimentos, cadastros de clientes e serviços realizados.
 
 ## Funcionalidades
 
