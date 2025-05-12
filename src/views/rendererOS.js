@@ -1,6 +1,6 @@
 // Capturar o foco na busca pelo nome cliente
 //A constante "foco" obtem o elemento html(input) indentificado como "searchClinet"
-const foco = document.getElementById('searchOS');
+const foco = document.getElementById('inputSearchOs');
 
 //Iniciar a janela de clientes alterando as propriedades de alguns elementos
 document.addEventListener('DOMContentLoaded', () => {
@@ -68,60 +68,61 @@ api.resetForm((args) => {
 //Buscar avançada - estilo google ============================================
 
 //Capturar os ids referente ao campo do nome
-const input = document.getElementById("searchOS")
+const input = document.getElementById("inputSearchOs")
 
-//Capturar o id da ul de lista de sugestão de clientes
+//Capturar o id da ul de lista de sugestão da os
 const suggestionList = document.getElementById("viewListSuggestion")
 
-let idClient = document.getElementById("idClient")
+let idOs = document.getElementById("inputIdOs")
+let inputPlacaOs = document.getElementById("inputPlacaOs")
+let placaMoto = document.getElementById("inputPlacaMoto")
+let marcaMoto = document.getElementById('inputMarcaMoto')
+let modeloMoto = document.getElementById('inputModeloMoto')
 
-let nameClient = document.getElementById("inputNameClient")
-let phoneClient = document.getElementById('inputPhoneClient')
-let cpfClient = document.getElementById('inputCPFClient')
-
-//Vetor 
-let arrayClients = []
+let arrayPlaca = []
 
 // captura em tempo real do input (digitação de caracteres na caixa de busca)
 input.addEventListener('input', () => {
     // Passo 1: capturar o que for digitado na caixa de busca e converter tudo para letras minusculas (auxilio ao filtro)
     const search = input.value.toLowerCase()
-    ///console.log(search) // teste de apoio a logica 
+    ///console.log(search) // teste de apoio a logica
 
     // passo 2: enviar ao main um pedido de busca de clientes pelo nome (via preload - api (IPC))
-    api.searchClients()
+    api.searchMoto()
 
     // Recebimentos dos clientes do banco de dados (passo 3)
-    api.listClients((event, clients) => {
+    api.listMoto((event, moto) => {
         ///console.log(clients) // teste do passo 3
         // converter o vetor para JSON os dados dos clientes recebidos
-        const dataClients = JSON.parse(clients)
+        const dataMoto = JSON.parse(moto)
+        
         // armazenar no vetor os dados dos clientes
-        arrayClients = dataClients
+        arrayPlaca = dataMoto
         // Passo 4: Filtrar todos os dados dos clientes extraindo nomes que tenham relação com os caracteres digitados na busca em tempo real 
-        const results = arrayClients.filter(c =>
-            c.nomeCliente && c.nomeCliente.toLowerCase().includes(search)
+        const results = arrayPlaca.filter(c =>
+            c.placaMoto && c.placaMoto.toLowerCase().includes(search)
         ).slice(0, 10) // maximo 10 resultados
         ///console.log(results) // IMPORTANTE para o entendimento
         // Limpar a lista a cada caractere digitado
         suggestionList.innerHTML = ""
         // Para cada resultado gerar um item da lista <li>
-        results.forEach(c => {
+
+        console.log(results)
+        results.forEach(m => {
             // criar o elemento li
             const item = document.createElement('li')
             // Adicionar classes bootstrap a cada li criado 
             item.classList.add('list-group-item','list-group-item-action')
-            // exibir nome do cliente
-            item.textContent = c.nomeCliente
+            // exibir placa da moto
+            item.textContent = m.placaMoto
 
             // adicionar os lis criados a lista ul
             suggestionList.appendChild(item)
 
             //Adicionar um evento de clique no item na lista para preencher os campos do comportamento
             item.addEventListener("click", () => {
-                idClient.value = c._id
-                nameClient.value = c.nameClient
-                phoneClient.value = c.foneCliente
+                idOs.value = m._id
+                inputPlacaOs.value = m.placaMoto
 
                 input.value = ""
                 suggestionList.value = ""

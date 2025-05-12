@@ -766,14 +766,14 @@ ipcMain.on('search-os', (event) => {
 // ============================================================
 
 //Buscar cliente para vincular na os - estilo google======================================
-ipcMain.on('search-clients', async (event) => {
+ipcMain.on('search-moto', async (event) => {
     try {
-        //Buscar no banco os clientes pelo nome em ordem alfabética
-        const clients = await clientModel.find().sort({ nomeCliente: 1 })
-        console.log(clients)//Teste do passo 2
+        //Buscar no banco os placa em ordem alfabética
+        const moto = await motoModel.find().sort({ placaMoto: 1 })
+        console.log(moto)//Teste do passo 2
 
-        //Passo 3: envio dos clientes para 
-        event.reply('list-clients', JSON.stringify(clients))
+        //Passo 3: envio das placa para o renderizador
+        event.reply('list-moto', JSON.stringify(moto))
     } catch (error) {
         console.log(error)
     }
