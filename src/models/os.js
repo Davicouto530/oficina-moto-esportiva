@@ -11,8 +11,9 @@ const cadastroOS = new Schema({
     numOs: {
         type: Number
     },
-    dataEhora: {
-        type: String
+    dataEntrada: {
+        type: Date,
+        default: Date.now
     },
     placaOs: {
         type: String

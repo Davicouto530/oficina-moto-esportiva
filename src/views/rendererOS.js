@@ -24,6 +24,8 @@ let problemaOS = document.getElementById("inputProblemaOS");
 let diagOS = document.getElementById("inputDiagnosticoOS");
 let pecasRepOS = document.getElementById("inputPecasRepOS");
 let statusOS = document.getElementById("inputStatusOS");
+// captura do id do campo data
+let dateOS = document.getElementById('inputData')
 
 //==========================================================================
 //CRUD CREATE E UPDATE
@@ -33,7 +35,7 @@ frmOS.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value)
+    console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value, dateOS.value)
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const os = {
@@ -76,8 +78,9 @@ const suggestionList = document.getElementById("viewListSuggestion")
 let idOs = document.getElementById("inputIdOs")
 let inputPlacaOs = document.getElementById("inputPlacaOs")
 let placaMoto = document.getElementById("inputPlacaMoto")
-let marcaMoto = document.getElementById('inputMarcaMoto')
-let modeloMoto = document.getElementById('inputModeloMoto')
+
+let modeloOs = document.getElementById('inputModeloOs')
+let marcaOs = document.getElementById('inputMarcaOs')
 
 let arrayPlaca = []
 
@@ -108,27 +111,31 @@ input.addEventListener('input', () => {
         // Para cada resultado gerar um item da lista <li>
 
         console.log(results)
-        results.forEach(m => {
+        results.forEach(c => {
             // criar o elemento li
             const item = document.createElement('li')
             // Adicionar classes bootstrap a cada li criado 
             item.classList.add('list-group-item','list-group-item-action')
             // exibir placa da moto
-            item.textContent = m.placaMoto
+            item.textContent = c.placaMoto
 
             // adicionar os lis criados a lista ul
             suggestionList.appendChild(item)
 
             //Adicionar um evento de clique no item na lista para preencher os campos do comportamento
             item.addEventListener("click", () => {
-                idOs.value = m._id
-                inputPlacaOs.value = m.placaMoto
-
-                input.value = ""
-                suggestionList.value = ""
-            })
+                idOs.value = c._id;
+                inputPlacaOs.value = c.placaMoto;
+                marcaOs.value = c.marcaMoto;
+                modeloOs.value = c.modeloMoto;
+            
+                // Ocultar a lista após o clique
+                suggestionList.innerHTML = "";
+            
+                // (opcional) Limpar o campo de busca se quiser
+                // input.value = "";
+            });
         })
-
     })
 })
 
@@ -147,6 +154,39 @@ function inputOs() {
 }
 
 //FIM CRUD READ====================================================================
+
+api.renderOS((event, dataOS) => {
+    console.log(dataOS)
+    const os = JSON.parse(dataOS)
+    // preencher os campos com os dados da OS
+    idOS.value = os._id
+    // formatar data:
+    const data = new Date(os.dataEntrada)
+    const formatada = data.toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    })
+    dateOS.value = formatada
+    placaOs.value = os.idCliente
+    valorOS.value = os.valor
+    prazoOS.value = os.prazo
+    funcRespOs.value = os.
+    dadosEquipa
+    problemaOS.value = os.
+    problemaCliente
+    diagOS.value = os.
+    diagTecnico
+    pecasRepOS.value = os.
+    pecasReparo
+    statusOS.value = os.statusDaOS
+})
+
+// == Fim - Buscar OS - CRUD Read =============================
+// ============================================================
 
 // == CRUD Delete OS ==================================
 

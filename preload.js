@@ -31,8 +31,7 @@ contextBridge.exposeInMainWorld('api', {
     searchOs: () => ipcRenderer.send('search-os'),
     searchMoto: (moto) => ipcRenderer.send('search-moto', moto),
     listMoto: (moto) => ipcRenderer.on('list-moto', moto),
-
-    renderOs: (dataOs) => ipcRenderer.on('render-os', dataOs),
+    renderOS: (dataOS) => ipcRenderer.on('render-os', dataOS),
     deleteOs: (id) => ipcRenderer.send('delete-os', id)
 })
 
