@@ -31,6 +31,9 @@ const fs = require('fs')
 //!º Instalar o recurso: npm i 'electron-prompt'
 const prompt = require('electron-prompt')
 
+//Importação do mongoose
+const mongoose = require('mongoose')
+
 //Janela principal
 let win
 const createWindow = () => {
@@ -742,6 +745,7 @@ ipcMain.on('delete-os', async (event, id) => {
 // ============================================================
 // == Buscar OS ===============================================
 
+//=============================================== Buscar OS========================================
 ipcMain.on('search-os', (event) => {
     //console.log("teste: busca OS")
     prompt({
@@ -753,11 +757,37 @@ ipcMain.on('search-os', (event) => {
         type: 'input',
         width: 400,
         height: 200
-    }).then((result) => {
+    }).then(async (result) => {
         if (result !== null) {
-            console.log(result)
-            //buscar a os no banco pesquisando pelo valor do result (número da OS)
 
+            //buscar a os no banco pesquisando pelo valor do result (número da OS)
+            if (mongoose.Types.ObjectId.isValid(result)) {
+                try {
+                    const dateOS = await OSModel.findById(result)
+                    if (dateOS) {
+                        console.log(dateOS) // teste importante
+                        // enviando os dados da OS ao rendererOS
+                        // OBS: IPC só trabalha com string, então é necessário converter o JSON para string JSON.stringify(dateOS)
+                        event.reply('render-os', JSON.stringify(dateOS))
+                    } else {
+                        dialog.showMessageBox({
+                            type: 'warning',
+                            title: "Aviso!",
+                            message: "OS não encontrada",
+                            buttons: ['OK']
+                        })
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                dialog.showMessageBox({
+                    type: 'error',
+                    title: "Atenção!",
+                    message: "Formato do número da OS inválido.\nVerifique e tente novamente.",
+                    buttons: ['OK']
+                })
+            }
         }
     })
 })

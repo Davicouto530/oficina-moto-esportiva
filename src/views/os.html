@@ -41,7 +41,7 @@
             <!-- Numero da OS -->
             <div class="col-md-3">
                 <label for="inputNumOs" class="form-label">Nº OS</label>
-                <input type="number" class="form-control" disabled id="inputNumOs" spellcheck="false" maxlength="30">
+                <input type="text" class="form-control" disabled id="inputNumOs" spellcheck="false" maxlength="30">
             </div>
 
             <!-- Placa -->
@@ -121,8 +121,8 @@
                 <button type="submit" class="btn btn-success" id="btnCreate">Gerar OS</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
                 <button type="button" class="btn btn-danger" id="btnDelete" onclick="excluirOs()">Delete</button>
-                <button type="submit" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
-                <button type="submit" class="btn btn-dark" onclick="inputOs()">Buscar OS</button>
+                <button type="button" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
+                <button type="button" class="btn btn-dark" onclick="inputOs()">Buscar OS</button>
 
                 <button type="reset" class="btn mt-3" id="btnReset" onclick="resetForm()"></button>
             </div>

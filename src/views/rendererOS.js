@@ -16,7 +16,7 @@ let arrayOs = []
 
 //captura dos dados dos inputs do formulário (Passo 1: fluxo)
 let frmOS = document.getElementById("frmOS");
-let placaOs = document.getElementById("inputPlaca");
+let placaOs = document.getElementById("inputPlacaOs");
 let valorOS = document.getElementById("inputValorOS");
 let prazoOS = document.getElementById("inputPrazoOS");
 let funcRespOs = document.getElementById("inputFuncRespOS");
@@ -25,7 +25,8 @@ let diagOS = document.getElementById("inputDiagnosticoOS");
 let pecasRepOS = document.getElementById("inputPecasRepOS");
 let statusOS = document.getElementById("inputStatusOS");
 // captura do id do campo data
-let dateOS = document.getElementById('inputData')
+let dateOS = document.getElementById('inputData');
+let idOS = document.getElementById("inputNumOs");
 
 //==========================================================================
 //CRUD CREATE E UPDATE
@@ -35,7 +36,12 @@ frmOS.addEventListener('submit', async (event) => {
     //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
     event.preventDefault()
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value, dateOS.value)
+    // console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value, dateOS.value)
+
+    // validação do campo obrigatório 'idClient' (validação html não funciona via html para campos desativados)
+    // if (idClient.value === "") {
+
+    // }
 
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const os = {
@@ -63,7 +69,7 @@ function resetForm() {
 //Recebimento do pedido do main para resetar o formulário
 api.resetForm((args) => {
     resetForm()
-}) 
+})
 
 //Buscar avançada - estilo google ============================================
 
@@ -98,7 +104,7 @@ input.addEventListener('input', () => {
         ///console.log(clients) // teste do passo 3
         // converter o vetor para JSON os dados dos clientes recebidos
         const dataMoto = JSON.parse(moto)
-        
+
         // armazenar no vetor os dados dos clientes
         arrayPlaca = dataMoto
         // Passo 4: Filtrar todos os dados dos clientes extraindo nomes que tenham relação com os caracteres digitados na busca em tempo real 
@@ -115,7 +121,7 @@ input.addEventListener('input', () => {
             // criar o elemento li
             const item = document.createElement('li')
             // Adicionar classes bootstrap a cada li criado 
-            item.classList.add('list-group-item','list-group-item-action')
+            item.classList.add('list-group-item', 'list-group-item-action')
             // exibir placa da moto
             item.textContent = c.placaMoto
 
@@ -128,10 +134,10 @@ input.addEventListener('input', () => {
                 inputPlacaOs.value = c.placaMoto;
                 marcaOs.value = c.marcaMoto;
                 modeloOs.value = c.modeloMoto;
-            
+
                 // Ocultar a lista após o clique
                 suggestionList.innerHTML = "";
-            
+
                 // (opcional) Limpar o campo de busca se quiser
                 // input.value = "";
             });
@@ -141,7 +147,7 @@ input.addEventListener('input', () => {
 
 //Ocultar a lista ao clicar fora
 document.addEventListener("click", (event) => {
-    if(!input.contains(event.target) && !suggestionList.contains(event.target)){
+    if (!input.contains(event.target) && !suggestionList.contains(event.target)) {
         suggestionList.innerHTML = ""
     }
 })
@@ -156,10 +162,9 @@ function inputOs() {
 //FIM CRUD READ====================================================================
 
 api.renderOS((event, dataOS) => {
-    console.log(dataOS)
+    // console.log(dataOS)
     const os = JSON.parse(dataOS)
-    // preencher os campos com os dados da OS
-    idOS.value = os._id
+    
     // formatar data:
     const data = new Date(os.dataEntrada)
     const formatada = data.toLocaleString("pt-BR", {
@@ -170,18 +175,16 @@ api.renderOS((event, dataOS) => {
         minute: "2-digit",
         second: "2-digit"
     })
+    // preencher os campos com os dados da OS
+    idOS.value = os._id
     dateOS.value = formatada
-    placaOs.value = os.idCliente
+    placaOs.value = os.placaOs
     valorOS.value = os.valor
     prazoOS.value = os.prazo
-    funcRespOs.value = os.
-    dadosEquipa
-    problemaOS.value = os.
-    problemaCliente
-    diagOS.value = os.
-    diagTecnico
-    pecasRepOS.value = os.
-    pecasReparo
+    funcRespOs.value = os.funcioResp
+    problemaOS.value = os.problemaCliente
+    diagOS.value = os.diagTecnico
+    pecasRepOS.value = os.pecasReparo 
     statusOS.value = os.statusDaOS
 })
 
