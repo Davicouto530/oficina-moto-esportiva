@@ -6,7 +6,7 @@ const foco = document.getElementById('inputSearchOs');
 document.addEventListener('DOMContentLoaded', () => {
     //Desativar os botão 
     btnUpdate.disabled = true;
-    btnDelete.disabled = true;
+    btnDelete.disabled = false;
     //Foco na busca do cliente
     foco.focus();
 });
@@ -17,6 +17,8 @@ let arrayOs = []
 //captura dos dados dos inputs do formulário (Passo 1: fluxo)
 let frmOS = document.getElementById("frmOS");
 let placaOs = document.getElementById("inputPlacaOs");
+let modeloOs = document.getElementById('inputModeloOs')
+let marcaOs = document.getElementById('inputMarcaOs');
 let valorOS = document.getElementById("inputValorOS");
 let prazoOS = document.getElementById("inputPrazoOS");
 let funcRespOs = document.getElementById("inputFuncRespOS");
@@ -38,14 +40,11 @@ frmOS.addEventListener('submit', async (event) => {
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
     // console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value, dateOS.value)
 
-    // validação do campo obrigatório 'idClient' (validação html não funciona via html para campos desativados)
-    // if (idClient.value === "") {
-
-    // }
-
     //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
     const os = {
         placaOs: placaOs.value,
+        marcaOs: marcaOs.value,
+        modeloOs: modeloOs.value,
         valorOS: valorOS.value,
         prazoOS: prazoOS.value,
         funcRespon: funcRespOs.value,
@@ -84,9 +83,6 @@ const suggestionList = document.getElementById("viewListSuggestion")
 let idOs = document.getElementById("inputIdOs")
 let inputPlacaOs = document.getElementById("inputPlacaOs")
 let placaMoto = document.getElementById("inputPlacaMoto")
-
-let modeloOs = document.getElementById('inputModeloOs')
-let marcaOs = document.getElementById('inputMarcaOs')
 
 let arrayPlaca = []
 
@@ -179,6 +175,8 @@ api.renderOS((event, dataOS) => {
     idOS.value = os._id
     dateOS.value = formatada
     placaOs.value = os.placaOs
+    marcaOs.value = os.marcaOs
+    modeloOs.value = os.modeloOs
     valorOS.value = os.valor
     prazoOS.value = os.prazo
     funcRespOs.value = os.funcioResp
@@ -191,11 +189,13 @@ api.renderOS((event, dataOS) => {
 // == Fim - Buscar OS - CRUD Read =============================
 // ============================================================
 
-// == CRUD Delete OS ==================================
+// ============================================================
+// == CRUD Delete =============================================
 
-function excluirOs() {
-    console.log(id.value)//Passo 1: receber do form o id
-    api.deleteOs(id.value)//Passo 2: enviar o id ao main
+function removeOS() {
+    console.log(idOS.value) // Passo 1 (receber do form o id da OS)
+    api.deleteOS(idOS.value) // Passo 2 (enviar o id da OS ao main)
 }
 
-// == FIM CRUD Delete OS ==================================
+// == Fim - CRUD Delete =======================================
+// ============================================================

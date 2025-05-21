@@ -71,43 +71,43 @@
             <!-- Valor -->
             <div class="col-md-4">
                 <label for="inputValorOS" class="form-label">Valor do serviço</label>
-                <input type="text" class="form-control" id="inputValorOS" spellcheck="false" maxlength="30">
+                <input type="text" class="form-control" id="inputValorOS" required spellcheck="false" maxlength="30">
             </div>
 
             <!-- Prazo  -->
             <div class="col-md-4">
                 <label for="inputPrazoOS" class="form-label">Prazo</label>
-                <input type="text" class="form-control" id="inputPrazoOS" spellcheck="false"  maxlength="15">
+                <input type="text" class="form-control" id="inputPrazoOS" required spellcheck="false"  maxlength="15">
             </div>
 
             <!-- Dados do equipamento  -->
             <div class="col-md-4">
                 <label for="inputFuncRespOS" class="form-label">Mecânico responsável</label>
-                <input type="text" class="form-control" id="inputFuncRespOS" spellcheck="false" maxlength="50">
+                <input type="text" class="form-control" id="inputFuncRespOS" required spellcheck="false" maxlength="50">
             </div>
 
             <!-- Problema relatado pelo cliente -->
             <div class="col-md-6">
                 <label for="inputProblemaOS" class="form-label">Problema relatado pelo cliente</label>
-                <input type="text" class="form-control" id="inputProblemaOS" spellcheck="false" maxlength="500">
+                <input type="text" class="form-control" id="inputProblemaOS" required spellcheck="false" maxlength="500">
             </div>
 
             <!-- Diagnóstico técnico -->
             <div class="col-md-6">
                 <label for="inputDiagnosticoOS" class="form-label">Diagnóstico técnico</label>
-                <input type="text" class="form-control" id="inputDiagnosticoOS" spellcheck="false" maxlength="500">
+                <input type="text" class="form-control" id="inputDiagnosticoOS" required spellcheck="false" maxlength="500">
             </div>
 
             <!-- Peças necessárias para reparo -->
             <div class="col-md-6">
                 <label for="inputPecasRepOS" class="form-label">Peças necessárias para reparo</label>
-                <input type="text" class="form-control" id="inputPecasRepOS" spellcheck="false" maxlength="500">
+                <input type="text" class="form-control" id="inputPecasRepOS" required spellcheck="false" maxlength="500">
             </div>
 
             <!-- Status da OS  -->
             <div class="col-md-6">
                 <label for="inputStatusOS" class="form-label">Status da OS</label>
-                <select class="form-select" id="inputStatusOS" name="OS">
+                <select class="form-select" required id="inputStatusOS" name="OS">
                     <option value=""></option>
                     <option>Pendente</option>
                     <option>Em andamento</option>
@@ -120,7 +120,7 @@
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Gerar OS</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
-                <button type="button" class="btn btn-danger" id="btnDelete" onclick="excluirOs()">Delete</button>
+                <button type="button" class="btn btn-danger" id="btnDelete" onclick="removeOS()">Delete</button>
                 <button type="button" class="btn btn-primary" id="btnImprimir">Imprimir recibo</button>
                 <button type="button" class="btn btn-dark" onclick="inputOs()">Buscar OS</button>
 

@@ -18,6 +18,12 @@ const cadastroOS = new Schema({
     placaOs: {
         type: String
     },
+    modeloOs: {
+        type: String
+    },
+    marcaOs: {
+        type: String
+    },
     valor: {
         type: String
     },
