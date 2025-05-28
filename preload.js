@@ -32,7 +32,9 @@ contextBridge.exposeInMainWorld('api', {
     searchMoto: (moto) => ipcRenderer.send('search-moto', moto),
     listMoto: (moto) => ipcRenderer.on('list-moto', moto),
     renderOS: (dataOS) => ipcRenderer.on('render-os', dataOS),
-    deleteOS: (idOS) => ipcRenderer.send('delete-os', idOS)
+    deleteOS: (idOS) => ipcRenderer.send('delete-os', idOS),
+    updateOS: (os) => ipcRenderer.send('update-os', os),
+    printOS: () => ipcRenderer.send('print-os')
 })
 
 function dbStatus(message) {

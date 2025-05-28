@@ -6,7 +6,8 @@ const foco = document.getElementById('inputSearchOs');
 document.addEventListener('DOMContentLoaded', () => {
     //Desativar os botão 
     btnUpdate.disabled = true;
-    btnDelete.disabled = false;
+    btnDelete.disabled = true;
+    btnCreate.disabled = false;
     //Foco na busca do cliente
     foco.focus();
 });
@@ -40,22 +41,42 @@ frmOS.addEventListener('submit', async (event) => {
     //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
     // console.log(placaOs.value, valorOS.value, prazoOS.value, funcRespOs.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value, dateOS.value)
 
-    //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
-    const os = {
-        placaOs: placaOs.value,
-        marcaOs: marcaOs.value,
-        modeloOs: modeloOs.value,
-        valorOS: valorOS.value,
-        prazoOS: prazoOS.value,
-        funcRespon: funcRespOs.value,
-        problemaOS: problemaOS.value,
-        diagOS: diagOS.value,
-        pecasOS: pecasRepOS.value,
-        statusOS: statusOS.value
+    if (idOS.value === "") {
+        //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
+        const os = {
+            idOS: idOS.value,
+            placaOs: placaOs.value,
+            marcaOs: marcaOs.value,
+            modeloOs: modeloOs.value,
+            valorOS: valorOS.value,
+            prazoOS: prazoOS.value,
+            funcRespon: funcRespOs.value,
+            problemaOS: problemaOS.value,
+            diagOS: diagOS.value,
+            pecasOS: pecasRepOS.value,
+            statusOS: statusOS.value
+        }
+        //Enviar ao main o objeto OS - Passo 2 (fluxo)
+        //Uso do preload.js
+        api.newOs(os)
+    } else {
+        const os = {
+            idOS: idOS.value,
+            placaOs: placaOs.value,
+            marcaOs: marcaOs.value,
+            modeloOs: modeloOs.value,
+            valorOS: valorOS.value,
+            prazoOS: prazoOS.value,
+            funcRespOs: funcRespOs.value,
+            problemaOS: problemaOS.value,
+            diagOS: diagOS.value,
+            pecasOS: pecasRepOS.value,
+            statusOS: statusOS.value
+        }
+        //Enviar ao main o objeto OS - Passo 2 (fluxo)
+        //Uso do preload.js
+        api.updateOS(os)
     }
-    //Enviar ao main o objeto OS - Passo 2 (fluxo)
-    //Uso do preload.js
-    api.newOs(os)
 })
 
 //Fim crud create update====================================================
@@ -160,7 +181,7 @@ function inputOs() {
 api.renderOS((event, dataOS) => {
     // console.log(dataOS)
     const os = JSON.parse(dataOS)
-    
+
     // formatar data:
     const data = new Date(os.dataEntrada)
     const formatada = data.toLocaleString("pt-BR", {
@@ -182,8 +203,12 @@ api.renderOS((event, dataOS) => {
     funcRespOs.value = os.funcioResp
     problemaOS.value = os.problemaCliente
     diagOS.value = os.diagTecnico
-    pecasRepOS.value = os.pecasReparo 
+    pecasRepOS.value = os.pecasReparo
     statusOS.value = os.statusDaOS
+
+    btnUpdate.disabled = false;
+    btnDelete.disabled = false;
+    btnCreate.disabled = true;
 })
 
 // == Fim - Buscar OS - CRUD Read =============================
@@ -199,3 +224,11 @@ function removeOS() {
 
 // == Fim - CRUD Delete =======================================
 // ============================================================
+
+// ================================= IMPRIMIR OS =================================
+
+function generateOS() {
+    api.printOS()
+}
+
+// ================================= FIM IMPRIMIR OS =================================
