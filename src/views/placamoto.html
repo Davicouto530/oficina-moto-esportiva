@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelo e placa de moto</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 
-    <!-- CSS Personalizado -->
     <link rel="stylesheet" href="../public/css/style.css">
 
-    <!--Impedir a execução de scripts externos ou não autorizados-->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' ">
 
     <link rel="stylesheet" href="style.css">
@@ -21,7 +18,7 @@
 
     <div class="container">
         <form id="frmMoto" class="mt-2 row g-3">
-            <!--Buscar-->
+
             <div class="col-md-6">
                 <input type="text" class="form-control" id="searchMoto" maxlength="30" spellcheck="false">
             </div>
@@ -29,45 +26,38 @@
                 <button type="button" class="btn btn-dark" id="btnRead" onclick="searchMoto()">Buscar</button>
             </div>
 
-            <!--Linha-->
             <hr class="mt-4 border border-primary border -1">
 
-            <!--Placa-->
             <div class="col-md-4">
                 <label for="inputPlacaMoto" class="form-label">Placa</label>
 
                 <input type="text" class="form-control" id="inputPlacaMoto" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Marca-->
             <div class="col-md-4">
                 <label for="inputMarcaMoto" class="form-label">Marca</label>
 
                 <input type="text" class="form-control" id="inputMarcaMoto" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Modelo-->
             <div class="col-md-4">
                 <label for="inputModeloMoto" class="form-label">Modelo</label>
 
                 <input type="text" class="form-control" id="inputModeloMoto" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Ano da moto-->
             <div class="col-md-4">
                 <label for="inputAnoMoto" class="form-label">Ano da moto</label>
 
                 <input type="text" class="form-control" id="inputAnoMoto" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Cor-->
             <div class="col-md-4">
                 <label for="inputCorMoto" class="form-label">Cor</label>
 
                 <input type="text" class="form-control" id="inputCorMoto" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Botões-->
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
@@ -79,7 +69,6 @@
         </form>
     </div>
 
-    <!--Bootstrap-->
     <script src="../public/js/bootstrap.min.js"></script>
 
     <script src="rendererMoto.js"></script>

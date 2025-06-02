@@ -195,9 +195,6 @@ const template = [
                 click: () => relatorioClientes()
             },
             {
-                label: 'Histórico de serviços'
-            },
-            {
                 label: 'OS pendente',
                 click: () => relatorioOSPendente()
             },
@@ -221,17 +218,6 @@ const template = [
             {
                 label: 'Restaurar o zoom padrão',
                 role: 'resetZoom'
-            },
-            {
-                type: 'separator'
-            },
-            {
-                label: 'Recarregar',
-                role: 'reload'
-            },
-            {
-                label: 'Ferramenta do desenvolvedor',
-                role: 'toggleDevTools'
             }
         ]
     },

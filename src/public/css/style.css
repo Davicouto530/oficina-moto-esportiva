@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-/* Botões na tela principal */
 .button img {
     margin: 50px 15px 25px 15px;
     padding: 5px;
@@ -9,7 +8,6 @@
     width: 110px;
 }
 
-/*Logo*/
 #logo{
     position: fixed;
     bottom: 40px;
@@ -18,7 +16,6 @@
     cursor: none;
 }
 
-/* ocultar o campo id do cliente (na página cliente do sistema) */
 #idClient{
     display: none;
 }
@@ -53,7 +50,6 @@ footer p {
     font-size: 18px;
 }
 
-/*lista de clientes vinculados a OS*/
 #viewListSuggestion {
     z-index: 2;
     max-width: 390px;

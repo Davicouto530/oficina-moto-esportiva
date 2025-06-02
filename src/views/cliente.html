@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de clientes</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 
-    <!-- CSS Personalizado -->
     <link rel="stylesheet" href="../public/css/style.css">
 
-    <!--Impedir a execução de scripts externos ou não autorizados-->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' ">
 
     <link rel="stylesheet" href="style.css">
@@ -21,7 +18,6 @@
 
     <div class="container">
         <form id="frmClient" class="mt-2 row g-3">
-            <!--Buscar cliente-->
             <div class="col-md-6">
                 <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false">
             </div>
@@ -29,27 +25,22 @@
                 <button type="button" class="btn btn-dark" id="btnRead" onclick="buscarCliente()">Buscar</button>
             </div>
 
-            <!--Linha-->
             <hr class="mt-4 border border-primary border -1">
 
-            <!--Id do cliente (oculto)-->
             <input type="text" id="idClient">
 
-            <!--Nome do cliente-->
             <div class="col-md-8">
                 <label for="inputNameClient" class="form-label">Nome</label>
 
                 <input type="text" class="form-control" id="inputNameClient" required spellcheck="false" maxlength="26">
             </div>
 
-            <!--CPF do cliente-->
             <div class="col-md-4">
                 <label for="inputCPFClient" class="form-label">CPF</label>
 
                 <input type="text" class="form-control" id="inputCPFClient" spellcheck="false" maxlength="30">
             </div>
 
-            <!--Email-->
             <div class="col-md-6">
                 <label for="inputEmailClient" class="form-label">Email</label>
 
@@ -57,35 +48,30 @@
                     maxlength="30">
             </div>
 
-            <!--Telefone-->
             <div class="col-md-4">
                 <label for="inputIPhoneClient" class="form-label">Telefone</label>
 
                 <input type="tel" class="form-control" id="inputIPhoneClient" required spellcheck="false" maxlength="15">
             </div>
 
-            <!--CEP-->
             <div class="col-md-2">
                 <label for="inputCEPClient" class="form-label">CEP</label>
 
                 <input type="tel" class="form-control" id="inputCEPClient" required spellcheck="false" maxlength="9" onblur="buscarCEP()">
             </div>
 
-            <!--Logradouro-->
             <div class="col-md-6">
                 <label for="inputAddressClient" class="form-label">Logradouro</label>
 
                 <input type="tel" class="form-control" id="inputAddressClient" required spellcheck="false" maxlength="30">
             </div>
 
-            <!--Numero-->
             <div class="col-md-3">
                 <label for="inputNumberClient" class="form-label">Numero</label>
 
                 <input type="tel" class="form-control" id="inputNumberClient" required spellcheck="false" maxlength="5">
             </div>
 
-            <!--Complemento-->
             <div class="col-md-3">
                 <label for="inputComplementClient" class="form-label">Complemento</label>
 
@@ -93,7 +79,6 @@
                     maxlength="12">
             </div>
 
-            <!--Bairro-->
             <div class="col-md-5">
                 <label for="inputNeighborhoodClient" class="form-label">Bairro</label>
 
@@ -101,7 +86,6 @@
                     maxlength="12">
             </div>
 
-            <!--Cidade-->
             <div class="col-md-4">
                 <label for="inputTSateClient" class="form-label">Cidade</label>
 
@@ -142,7 +126,6 @@
                 </select>
             </div>
 
-            <!--Botões-->
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
                 <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
@@ -153,7 +136,6 @@
         </form>
     </div>
 
-    <!--Bootstrap-->
     <script src="../public/js/bootstrap.min.js"></script>
 
     <script src="redererCliente.js"></script>
