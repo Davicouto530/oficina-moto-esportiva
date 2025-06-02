@@ -1,7 +1,5 @@
-//Importação dos recursos do framework mongoose
 const {model, Schema} = require('mongoose')
 
-//Criação da estrutura da coleção Clientes
 const cadastroMoto = new Schema({
     placaMoto: {
         type: String, 
@@ -19,9 +17,6 @@ const cadastroMoto = new Schema({
     cor: {
         type: String
     }
-}, {versionKey: false}) //Não versionar os dados armazenadas
-
-//Exportar para o main o modelo de dados
-//Clientes será o nome da coleção
+}, {versionKey: false}) 
 
 module.exports = model('PlacaMoto', cadastroMoto)
