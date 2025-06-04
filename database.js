@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb+srv://admin:123Senac@projetonode.ynvnv.mongodb.net/oficina-moto-esportiva'
+const url = 'mongodb://localhost:27017/'
 
 let conectado = false;
 
