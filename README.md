@@ -1,4 +1,4 @@
-![GitHub License](https://img.shields.io/github/license/Davicouto530/https%3A%2F%2Fgithub.com%2FDavicouto530)
+![GitHub License](https://img.shields.io/github/license/davicouto530/oficina-moto-esportiva)
 
 # Oficina de motos esportivas
 Sistema para gestão de serviços de uma ofina de motos esportivas desenvolvido com uso do framewrok Electron e do banco de dados MongoDB.
