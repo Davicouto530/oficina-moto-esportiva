@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let frmMoto = document.getElementById("frmMoto");
 let placa = document.getElementById("inputPlacaMoto");
-let marcaMoto = document.getElementById("inputMarcaNameMoto");
+let marcaMoto = document.getElementById("inputMarcaMoto");
 let modeloMoto = document.getElementById("inputModeloMoto");
 let anoMoto = document.getElementById("inputAnoMoto");
 let corMoto = document.getElementById("inputCorMoto");
