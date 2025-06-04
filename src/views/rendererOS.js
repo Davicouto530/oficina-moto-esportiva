@@ -58,7 +58,7 @@ frmOS.addEventListener('submit', async (event) => {
             funcRespOs: funcRespOs.value,
             problemaOS: problemaOS.value,
             diagOS: diagOS.value,
-            pecasOS: pecasRepOS.value,
+            pecasRepOS: pecasRepOS.value,
             statusOS: statusOS.value
         }
         

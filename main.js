@@ -796,16 +796,20 @@ ipcMain.on('print-os', async (event) => {
 
                         doc.setFontSize(10)
                         const termo = `
-    Termo de Serviço e Garantia
-    
-    O cliente autoriza a realização dos serviços técnicos descritos nesta ordem, ciente de que:
-    
-    - Diagnóstico e orçamento são gratuitos apenas se o serviço for aprovado. Caso contrário, poderá ser cobrada taxa de análise.
-    - Peças substituídas poderão ser retidas para descarte ou devolvidas mediante solicitação no ato do serviço.
-    - A garantia dos serviços prestados é de 90 dias, conforme Art. 26 do Código de Defesa do Consumidor, e cobre exclusivamente o reparo executado ou peça trocada, desde que o equipamento não tenha sido violado por terceiros.
-    - Não nos responsabilizamos por dados armazenados. Recomenda-se o backup prévio.
-    - Equipamentos não retirados em até 90 dias após a conclusão estarão sujeitos a cobrança de armazenagem ou descarte, conforme Art. 1.275 do Código Civil.
-    - O cliente declara estar ciente e de acordo com os termos acima.`
+TERMO DE SERVIÇO E GARANTIA  OFICINA DE MOTO ESPORTIVA
+O cliente autoriza a realização dos serviços técnicos descritos nesta ordem, ciente e de acordo com as seguintes condições:
+
+O diagnóstico e orçamento são gratuitos somente se o serviço for aprovado. Caso contrário, poderá ser cobrada uma taxa de análise.
+
+As peças substituídas poderão ser retidas para descarte pela oficina ou devolvidas mediante solicitação no ato da autorização do serviço.
+
+A garantia dos serviços prestados é de 90 (noventa) dias, conforme Art. 26 do Código de Defesa do Consumidor, e cobre exclusivamente o reparo executado ou as peças substituídas. A garantia será válida desde que a motocicleta não tenha sido violada, desmontada ou reparada por terceiros após a execução do serviço.
+
+A oficina não se responsabiliza por acessórios, objetos pessoais ou dados eletrônicos armazenados em módulos ou dispositivos da motocicleta. Recomenda-se a retirada prévia desses itens antes da entrega da moto para manutenção.
+
+Motocicletas não retiradas no prazo de até 90 (noventa) dias após a conclusão dos serviços estarão sujeitas à cobrança de taxa de armazenagem ou poderão ser encaminhadas para descarte, leilão ou alienação, conforme estabelece o Art. 1.275 do Código Civil.
+
+Ao assinar esta Ordem de Serviço, o cliente declara estar ciente e de pleno acordo com todos os termos acima descritos.`
 
                         doc.text(termo, 14, 150, { maxWidth: 180 }) 
 
@@ -875,18 +879,21 @@ async function printOS(osId) {
         
         doc.setFontSize(10)
         const termo = `
-Termo de Serviço e Garantia
+TERMO DE SERVIÇO E GARANTIA  OFICINA DE MOTO ESPORTIVA
+O cliente autoriza a realização dos serviços técnicos descritos nesta ordem, ciente e de acordo com as seguintes condições:
 
-O cliente autoriza a realização dos serviços técnicos descritos nesta ordem, ciente de que:
+O diagnóstico e orçamento são gratuitos somente se o serviço for aprovado. Caso contrário, poderá ser cobrada uma taxa de análise.
 
-- Diagnóstico e orçamento são gratuitos apenas se o serviço for aprovado. Caso contrário, poderá ser cobrada taxa de análise.
-- Peças substituídas poderão ser retidas para descarte ou devolvidas mediante solicitação no ato do serviço.
-- A garantia dos serviços prestados é de 90 dias, conforme Art. 26 do Código de Defesa do Consumidor, e cobre exclusivamente o reparo executado ou peça trocada, desde que o equipamento não tenha sido violado por terceiros.
-- Não nos responsabilizamos por dados armazenados. Recomenda-se o backup prévio.
-- Equipamentos não retirados em até 90 dias após a conclusão estarão sujeitos a cobrança de armazenagem ou descarte, conforme Art. 1.275 do Código Civil.
-- O cliente declara estar ciente e de acordo com os termos acima.`
+As peças substituídas poderão ser retidas para descarte pela oficina ou devolvidas mediante solicitação no ato da autorização do serviço.
 
-        
+A garantia dos serviços prestados é de 90 (noventa) dias, conforme Art. 26 do Código de Defesa do Consumidor, e cobre exclusivamente o reparo executado ou as peças substituídas. A garantia será válida desde que a motocicleta não tenha sido violada, desmontada ou reparada por terceiros após a execução do serviço.
+
+A oficina não se responsabiliza por acessórios, objetos pessoais ou dados eletrônicos armazenados em módulos ou dispositivos da motocicleta. Recomenda-se a retirada prévia desses itens antes da entrega da moto para manutenção.
+
+Motocicletas não retiradas no prazo de até 90 (noventa) dias após a conclusão dos serviços estarão sujeitas à cobrança de taxa de armazenagem ou poderão ser encaminhadas para descarte, leilão ou alienação, conforme estabelece o Art. 1.275 do Código Civil.
+
+Ao assinar esta Ordem de Serviço, o cliente declara estar ciente e de pleno acordo com todos os termos acima descritos.`
+
         doc.text(termo, 14, 150, { maxWidth: 180 }) 
 
         
