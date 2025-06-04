@@ -1,18 +1,36 @@
-# 🏍️ Oficina Moto Esportiva
+![GitHub License](https://img.shields.io/github/license/davicouto530/oficina-moto-esportiva)
 
-Sistema desktop fictício desenvolvido para gerenciar ordens de serviço em oficinas especializadas em motos esportivas. Este projeto visa otimizar o controle de atendimentos, cadastros de clientes e serviços realizados.
+# Oficina de motos esportivas
+Sistema para gestão de serviços de uma ofina de motos esportivas desenvolvido com uso do framewrok Electron e do banco de dados MongoDB.
 
-## Funcionalidades
+### Tela principal
+![](src/public/img/)
+### Cadastro de clientes
+![](src/public/img/)
+### Ordem de serviço
+![](src/public/img/)
+![](src/public/img/)
+### Relatório de clientes
+![](src/public/img/)
+### Relatório OS Pendentes
+![](src/public/img/)
+### Relatório OS Finalizadas
+![](src/public/img/)
 
-- Cadastro e gerenciamento de clientes
-- Registro de ordens de serviço com detalhes
-- Histórico de serviços realizados
-- Interface amigável e responsiva
+## Autor
+Davi do couto 
 
-## Tecnologias Utilizadas
+## Pré-requisitos de instalação:
+- Windows 10 ou superior
+- Ter o banco de dados MongoDB instalado
 
-- [Electron](https://www.electronjs.org/) – Para criação de aplicações desktop com tecnologias web
-- [Node.js](https://nodejs.org/) – Ambiente de execução JavaScript
-- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) – Linguagem de programação principal
-- [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML) e [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS) – Estrutura e estilo da interface
-- [Bootstrap 5](https://getbootstrap.com/) – Framework para design responsivo
+### Instalação do MongoDB:
+Acesse o site oficial:
+[MongoDB](https://www.mongodb.com/try/download/community)
+
+Baixe o MongoDB Community Server e instale com a opção de "Install MongoDB as a Service" ativada (instalação padrão).
+
+Após instalar, ele inicia automaticamente.
+
+### Instalação do sistema Oficina de motos esportivas
+Em releases faça o download da última versão (.exe) disponibilizada e execute no computador.
