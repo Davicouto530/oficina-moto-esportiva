@@ -18,7 +18,7 @@ frmMoto.addEventListener('submit', async (event) => {
     
     event.preventDefault()
     
-    console.log(placa.value, marcaMoto.value, modeloMoto.value, anoMoto.value, corMoto.value)
+    // console.log(placa.value, marcaMoto.value, modeloMoto.value, anoMoto.value, corMoto.value)
 
     const moto = {
         placaMoto: placa.value,

@@ -216,6 +216,10 @@ const template = [
                 role: 'zoomOut'
             },
             {
+                label: 'Ferramentas do desenvolvedor',
+                role: 'toggleDevTools'
+            },
+            {
                 label: 'Restaurar o zoom padrão',
                 role: 'resetZoom'
             }
